@@ -5,10 +5,13 @@ A project that aims to have a tool to manage racing leagues, first on Assetto Co
 
 ### Features aimed for release v1.0
 
+* Easy creation of Championships and their sessions.
 * Evaluation system based on Time Trial session, adjustable by observation from Administrators.
-* Automatic creation of divisions for a Championship
-* Automatic division in 3 tiers of drivers
-* Automatic creation of configuration for servers.
-* Support for custom livery creation.
-* Automatization of the race results processing
-* Support for penalty system
+* Support for both Endurance and Sprint races.
+* Support for custom liveries.
+* Support for a penalty system.
+* Automation of:
+    * Division creation in a Championship.
+    * Division of drivers in 3 tiers.
+    * Server configuration file creation.
+    * Race Results processing.

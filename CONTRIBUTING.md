@@ -3,7 +3,7 @@
 ## Index
 
 1.  [Workflow](#workflow)
-1.  [Project Structure](#project-structure)
+1.  [Coding-style](#coding-style)
 1.  [Commit Style](#commit-style)
 
 ### Workflow
@@ -38,23 +38,115 @@ There will be a few examples on each thing
     *   login
     *   parallax-at-index
 
-### Project Structure
+### Coding Style
 
-The Project follows the structure defined by [PHP Package Development Standards](http://php-pds.com/) on the file side, along with the [Semantic Versioning](https://semver.org/) definitions for version numbers. What this means is that the project will follow this:
+* 4 Spaces for Indentation
+* UNIX-style Newlines
+* No trailing white spaces
+* Use Semicolons
+* 80 Characters per line
+* Use single quotes
+* Opening Braces go on the same line
+* 1 Variable per statement
 
-#### File Structure
+#### Naming Conventions
 
-| Package root-level directory for... | ...named     |
-|:------------------------------------|:-------------|
-| Command-Line Executables            | `bin/`       |
-| Configuration Files                 | `config/`    |
-| Documentation Files                 | `docs/`      |
-| Web Server Files                    | `public/`    |
-| Other Resource Files                | `resources/` |
-| PHP Source Code                     | `src/`       |
-| Test Code                           | `tests/`     |
+* Variables, Properties, Functions = lowerCamelCase
+* Classes = UpperCamelCase
+* Constants = UPPERCASE
 
-#### Version Numbers
+#### Variables
+
+##### Object/Array Creation
+Use trailing commas and put short declarations on a single line. Only quote keys when your interpreter complains:
+```javascript
+var a = ['good', 'example'];
+
+var b = {
+   good: 'code',
+   'should be': 'pretty',
+};
+```
+
+#### Conditionals
+
+##### Use the === operator
+Programming is not about remembering stupid rules, use strict equality to make sure that it works properly.
+
+```javascript
+var a = 0;
+
+if (a !== '') {
+   console.log('winning');
+}
+```
+
+##### Use descriptive conditions
+If a condition isn't trivial, give it a descriptive named variable or function
+
+```javascript
+var isValidPassword = password.length >= 4 && /^(?=.*\d).{4,}$/.test(password);
+
+if (isValidPassword) {
+  console.log('winning');
+}
+```
+
+#### Functions
+
+##### Write small functions
+Keep your functions short, that way if it blows up, you'll know where it does more accurately and why.
+
+##### Return early from functions
+Avoid deep nesting of if statements and such
+
+```javascript
+function isPercentage(val) {
+   var isInRange = (val >= 0 && val <= 100);
+   return isInRange;
+}
+```
+
+##### Method Chaining
+One method per line should be used if you absolutely need to. Indent the methods so it's easier to tell they're part of the same chain.
+
+```javascript
+User
+
+.findOne({ name: 'foo' })
+
+.populate('bar')
+
+.exec(function(err, user) {
+
+return true;
+
+});
+```
+
+#### Comments
+
+##### Use Slashes for Comments
+Try to write comments that explain higher level mechanism, or clarify difficult segments, don't restate trivial things.
+
+```javascript
+
+// 'ID_SOMETHING=VALUE' -> ['ID_SOMETHING=VALUE',
+// 'SOMETHING', 'VALUE']
+var matches = item.match(/ID_([^\n]+)=([^\n]+)/));
+
+// This function has a nasty side effect where a failure to
+// increment a redis counter used for statistics will
+// cause an exception. This needs to be fixed in a later iteration.
+function loadUser(id, cb) {
+   // ...
+}
+```
+
+#### Requires on top
+Always put requires at top to illustrate a file's dependencies clearly, on an alphabetical order.
+
+### Version Numbers
 
 Example: `1.1.0-rc1`
 
@@ -67,16 +159,16 @@ Syntax: `X.Y.Z-postfix`
 | Z       | Hotfix                 |
 | postfix | Additional Information |
 
-##### Major
+#### Major
 Big leap in the project, an overhaul.
 
-##### Minor
+#### Minor
 Small leap in the project, new features.
 
-##### Hotfix
+#### Hotfix
 Self explanatory, only intended to be increased with [hotfixes](https://en.wikipedia.org/wiki/Hotfix).
 
-##### Postfix
+#### Postfix
 Rarely used, will mostly be used upon reaching [major](#major) updates with the `rcx` postfix, being x a number starting from 1 all the way to infinity if need be, meaning "Release Candidate"
 
 <sub>[Back to the top](#index)</sub>

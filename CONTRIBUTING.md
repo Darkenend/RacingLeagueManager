@@ -3,7 +3,7 @@
 ## Index
 
 1.  [Workflow](#workflow)
-1.  [Coding-style](#coding-style)
+1.  [Project Structure](#project-structure)
 1.  [Commit Style](#commit-style)
 
 ### Workflow
@@ -54,7 +54,7 @@ The Project follows the structure defined by [PHP Package Development Standards]
 | PHP Source Code                     | `src/`       |
 | Test Code                           | `tests/`     |
 
-### Coding Style
+#### Coding Style
 
 * 4 Spaces for Indentation
 * UNIX-style Newlines
@@ -65,15 +65,15 @@ The Project follows the structure defined by [PHP Package Development Standards]
 * Opening Braces go on the same line
 * 1 Variable per statement
 
-#### Naming Conventions
+##### Naming Conventions
 
 * Variables, Properties, Functions = lowerCamelCase
 * Classes = UpperCamelCase
 * Constants = UPPERCASE
 
-#### Variables
+##### Variables
 
-##### Object/Array Creation
+###### Object/Array Creation
 Use trailing commas and put short declarations on a single line. Only quote keys when your interpreter complains:
 ```javascript
 var a = ['good', 'example'];
@@ -84,9 +84,9 @@ var b = {
 };
 ```
 
-#### Conditionals
+##### Conditionals
 
-##### Use the === operator
+###### Use the === operator
 Programming is not about remembering stupid rules, use strict equality to make sure that it works properly.
 
 ```javascript
@@ -97,7 +97,7 @@ if (a !== '') {
 }
 ```
 
-##### Use descriptive conditions
+###### Use descriptive conditions
 If a condition isn't trivial, give it a descriptive named variable or function
 
 ```javascript
@@ -108,12 +108,12 @@ if (isValidPassword) {
 }
 ```
 
-#### Functions
+##### Functions
 
-##### Write small functions
+###### Write small functions
 Keep your functions short, that way if it blows up, you'll know where it does more accurately and why.
 
-##### Return early from functions
+###### Return early from functions
 Avoid deep nesting of if statements and such
 
 ```javascript
@@ -123,7 +123,7 @@ function isPercentage(val) {
 }
 ```
 
-##### Method Chaining
+###### Method Chaining
 One method per line should be used if you absolutely need to. Indent the methods so it's easier to tell they're part of the same chain.
 
 ```javascript
@@ -140,16 +140,16 @@ return true;
 });
 ```
 
-#### Comments
+##### Comments
 
-##### Use Slashes for Comments
+###### Use Slashes for Comments
 Try to write comments that explain higher level mechanism, or clarify difficult segments, don't restate trivial things.
 
 ```javascript
 
 // 'ID_SOMETHING=VALUE' -> ['ID_SOMETHING=VALUE',
 // 'SOMETHING', 'VALUE']
-var matches = item.match(/ID_([^\n]+)=([^\n]+)/));
+var matches = item.match(/ID_([^\n]+)=([^\n]+)/);
 
 // This function has a nasty side effect where a failure to
 // increment a redis counter used for statistics will
@@ -159,10 +159,10 @@ function loadUser(id, cb) {
 }
 ```
 
-#### Requires on top
+##### Requires on top
 Always put requires at top to illustrate a file's dependencies clearly, on an alphabetical order.
 
-### Version Numbers
+#### Version Numbers
 
 Example: `1.1.0-rc1`
 
@@ -175,16 +175,16 @@ Syntax: `X.Y.Z-postfix`
 | Z       | Hotfix                 |
 | postfix | Additional Information |
 
-#### Major
+##### Major
 Big leap in the project, an overhaul.
 
-#### Minor
+##### Minor
 Small leap in the project, new features.
 
-#### Hotfix
+##### Hotfix
 Self explanatory, only intended to be increased with [hotfixes](https://en.wikipedia.org/wiki/Hotfix).
 
-#### Postfix
+##### Postfix
 Rarely used, will mostly be used upon reaching [major](#major) updates with the `rcx` postfix, being x a number starting from 1 all the way to infinity if need be, meaning "Release Candidate"
 
 <sub>[Back to the top](#index)</sub>

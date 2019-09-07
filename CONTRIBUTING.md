@@ -38,6 +38,22 @@ There will be a few examples on each thing
     *   login
     *   parallax-at-index
 
+### Project Structure
+
+The Project follows the structure defined by [PHP Package Development Standards](http://php-pds.com/) on the file side, along with the [Semantic Versioning](https://semver.org/) definitions for version numbers. What this means is that the project will follow this:
+
+#### File Structure
+
+| Package root-level directory for... | ...named     |
+|:------------------------------------|:-------------|
+| Command-Line Executables            | `bin/`       |
+| Configuration Files                 | `config/`    |
+| Documentation Files                 | `docs/`      |
+| Web Server Files                    | `public/`    |
+| Other Resource Files                | `resources/` |
+| PHP Source Code                     | `src/`       |
+| Test Code                           | `tests/`     |
+
 ### Coding Style
 
 * 4 Spaces for Indentation

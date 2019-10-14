@@ -1,0 +1,17 @@
+
+name: Publish Release
+on:
+  push:
+    branches: 
+      - release
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@release
+    - name: Create a Release
+      uses: Darkenend/RacingLeagueManager@release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: New Release

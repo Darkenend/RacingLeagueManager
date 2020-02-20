@@ -1,5 +1,0 @@
-# IntelliJ
-*.iml
-.idea/*
-composer.lock
-vendor

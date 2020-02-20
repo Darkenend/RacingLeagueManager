@@ -1,0 +1,12 @@
+{
+  "name": "darkenend/racingleaguemanager",
+  "description": "Racing league manager aimed primarily for Assetto Corsa: Competizione, possibly in the future will support more racing simulators",
+  "minimum-stability": "stable",
+  "license": "gplv3",
+  "authors": [
+    {
+      "name": "Álvaro 'Darkenend' Real",
+      "email": "alvaroreal199@gmail.com"
+    }
+  ]
+}

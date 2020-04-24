@@ -22,7 +22,14 @@ class Message
     private $message;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Conversation", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $conversation_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $creator_id;
 
@@ -43,12 +50,24 @@ class Message
         return $this;
     }
 
-    public function getCreatorId(): ?int
+    public function getConversationId(): ?Conversation
+    {
+        return $this->conversation_id;
+    }
+
+    public function setConversationId(?Conversation $conversation_id): self
+    {
+        $this->conversation_id = $conversation_id;
+
+        return $this;
+    }
+
+    public function getCreatorId(): ?User
     {
         return $this->creator_id;
     }
 
-    public function setCreatorId(int $creator_id): self
+    public function setCreatorId(?User $creator_id): self
     {
         $this->creator_id = $creator_id;
 

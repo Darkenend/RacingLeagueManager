@@ -9,9 +9,17 @@ use App\Entity\TeamEntryList;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     /** @noinspection PhpHierarchyChecksInspection
      * @noinspection PhpSignatureMismatchDuringInheritanceInspection
      */
@@ -33,42 +41,43 @@ class AppFixtures extends Fixture
         $user_4 = new User();
         $user_5 = new User();
         $user_6 = new User();
-        $user_1->setRole(1);
+        $user_1->setRoles(['ROLE_ADMIN']);
         $user_1->setName("Álvaro");
         $user_1->setLastname("Real");
         $user_1->setSteamid("76561191111111111");
-        $user_1->setEmail(strtolower($user_1->getName()).strtolower($user_1->getLastname())."@gmail.com");
+        $user_1->setEmail(strtolower($this->stripAccents($user_1->getName())).strtolower($this->stripAccents($user_1->getLastname()))."@gmail.com");
+        $user_1->setPassword($this->passwordEncoder->encodePassword($user_1, 'password'));
         $user_1->addTeam($team_1);
         $user_1->addTeam($team_2);
-        $user_2->setRole(0);
         $user_2->setName("Javier");
         $user_2->setLastname("Ramirez");
         $user_2->setSteamid("76561191211111111");
-        $user_2->setEmail(strtolower($user_2->getName()).strtolower($user_2->getLastname())."@gmail.com");
+        $user_2->setEmail(strtolower($this->stripAccents($user_2->getName())).strtolower($this->stripAccents($user_2->getLastname()))."@gmail.com");
+        $user_2->setPassword($this->passwordEncoder->encodePassword($user_2, 'password'));
         $user_2->addTeam($team_1);
-        $user_3->setRole(0);
         $user_3->setName("Carlos");
         $user_3->setLastname("Vidal");
         $user_3->setSteamid("76561191311111111");
-        $user_3->setEmail(strtolower($user_3->getName()).strtolower($user_3->getLastname())."@gmail.com");
+        $user_3->setEmail(strtolower($this->stripAccents($user_3->getName())).strtolower($this->stripAccents($user_3->getLastname()))."@gmail.com");
+        $user_3->setPassword($this->passwordEncoder->encodePassword($user_3, 'password'));
         $user_3->addTeam($team_1);
-        $user_4->setRole(0);
         $user_4->setName("Dano");
         $user_4->setLastname("Cumbiote");
         $user_4->setSteamid("76561191411111111");
-        $user_4->setEmail(strtolower($user_4->getName()).strtolower($user_4->getLastname())."@gmail.com");
+        $user_4->setEmail(strtolower($this->stripAccents($user_4->getName())).strtolower($this->stripAccents($user_4->getLastname()))."@gmail.com");
+        $user_4->setPassword($this->passwordEncoder->encodePassword($user_4, 'password'));
         $user_4->addTeam($team_2);
-        $user_5->setRole(0);
         $user_5->setName("Jimmy");
         $user_5->setLastname("Broadbent");
         $user_5->setSteamid("76561191511111111");
-        $user_5->setEmail(strtolower($user_5->getName()).strtolower($user_5->getLastname())."@gmail.com");
+        $user_5->setEmail(strtolower($this->stripAccents($user_5->getName())).strtolower($this->stripAccents($user_5->getLastname()))."@gmail.com");
+        $user_5->setPassword($this->passwordEncoder->encodePassword($user_5, 'password'));
         $user_5->addTeam($team_3);
-        $user_6->setRole(0);
         $user_6->setName("Stephen");
         $user_6->setLastname("Bailey");
         $user_6->setSteamid("76561191611111111");
-        $user_6->setEmail(strtolower($user_6->getName()).strtolower($user_6->getLastname())."@gmail.com");
+        $user_6->setEmail(strtolower($this->stripAccents($user_6->getName())).strtolower($this->stripAccents($user_6->getLastname()))."@gmail.com");
+        $user_6->setPassword($this->passwordEncoder->encodePassword($user_6, 'password'));
         $user_6->addTeam($team_3);
 
         // Carreras
@@ -185,5 +194,12 @@ class AppFixtures extends Fixture
         $manager->persist($entrylist_3_3);
         $manager->persist($championship);
         $manager->flush();
+    }
+
+    public function stripAccents($original): string {
+        $accents = '/&([A-Za-z]{1,2})(grave|acute|circ|cedil|uml|lig);/';
+        $string_encoded = htmlentities($original,ENT_NOQUOTES,'UTF-8');
+        $new = preg_replace($accents,'$1',$string_encoded);
+        return $new;
     }
 }

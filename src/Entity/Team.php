@@ -24,19 +24,19 @@ class Team
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="teams")
-     */
-    private $drivers;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Championship", mappedBy="teams")
      */
     private $championships;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="teams")
+     */
+    private $drivers;
+
     public function __construct()
     {
-        $this->drivers = new ArrayCollection();
         $this->championships = new ArrayCollection();
+        $this->drivers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,32 +52,6 @@ class Team
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getDrivers(): Collection
-    {
-        return $this->drivers;
-    }
-
-    public function addDriver(User $driver): self
-    {
-        if (!$this->drivers->contains($driver)) {
-            $this->drivers[] = $driver;
-        }
-
-        return $this;
-    }
-
-    public function removeDriver(User $driver): self
-    {
-        if ($this->drivers->contains($driver)) {
-            $this->drivers->removeElement($driver);
-        }
 
         return $this;
     }
@@ -105,6 +79,34 @@ class Team
         if ($this->championships->contains($championship)) {
             $this->championships->removeElement($championship);
             $championship->removeTeam($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getDrivers(): Collection
+    {
+        return $this->drivers;
+    }
+
+    public function addDriver(User $driver): self
+    {
+        if (!$this->drivers->contains($driver)) {
+            $this->drivers[] = $driver;
+            $driver->addTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDriver(User $driver): self
+    {
+        if ($this->drivers->contains($driver)) {
+            $this->drivers->removeElement($driver);
+            $driver->removeTeam($this);
         }
 
         return $this;

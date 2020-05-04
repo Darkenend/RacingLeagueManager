@@ -31,7 +31,9 @@ class Message
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $creator_id;
+    private $creator;
+
+
 
     public function getId(): ?int
     {
@@ -62,14 +64,14 @@ class Message
         return $this;
     }
 
-    public function getCreatorId(): ?User
+    public function getCreator(): ?User
     {
-        return $this->creator_id;
+        return $this->creator;
     }
 
-    public function setCreatorId(?User $creator_id): self
+    public function setCreator(?User $creator): self
     {
-        $this->creator_id = $creator_id;
+        $this->creator = $creator;
 
         return $this;
     }

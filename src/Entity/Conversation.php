@@ -19,15 +19,15 @@ class Conversation
     private $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="conversation_id", orphanRemoval=true)
+     */
+    private $messages;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="conversations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="conversation_id", orphanRemoval=true)
-     */
-    private $messages;
 
     public function __construct()
     {
@@ -37,18 +37,6 @@ class Conversation
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     /**
@@ -78,6 +66,18 @@ class Conversation
                 $message->setConversationId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

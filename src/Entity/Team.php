@@ -31,12 +31,12 @@ class Team
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="teams")
      */
-    private $users;
+    private $drivers;
 
     public function __construct()
     {
         $this->championships = new ArrayCollection();
-        $this->users = new ArrayCollection();
+        $this->drivers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,26 +87,26 @@ class Team
     /**
      * @return Collection|User[]
      */
-    public function getUsers(): Collection
+    public function getDrivers(): Collection
     {
-        return $this->users;
+        return $this->drivers;
     }
 
-    public function addUser(User $user): self
+    public function addDriver(User $driver): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->addTeam($this);
+        if (!$this->drivers->contains($driver)) {
+            $this->drivers[] = $driver;
+            $driver->addTeam($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeDriver(User $driver): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            $user->removeTeam($this);
+        if ($this->drivers->contains($driver)) {
+            $this->drivers->removeElement($driver);
+            $driver->removeTeam($this);
         }
 
         return $this;

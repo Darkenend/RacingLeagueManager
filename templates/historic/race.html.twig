@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Historico{% endblock %}
+{% set championship = "" %}
+{% for race in races %}
+    {% set championship = race.championshipId.name %}
+{% endfor %}
+{% block body %}
+    <h1>
+        {{ championship }}
+    </h1>
+    <table class="table table-striped table-borderless">
+        <thead class="thead-dark">
+        <tr>
+            <th>Circuito</th>
+            <th>Duración de FP</th>
+            <th>Duración de Clasificacion</th>
+            <th>Duración de Carrera</th>
+            <th>Resultados</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for race in races %}
+            <tr>
+                <td>
+                    {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | capitalize }}
+                </td>
+                <td>
+                    {{ race.practiceLength }} minutos
+                </td>
+                <td>
+                    {{ race.qualyLength }} minutos
+                </td>
+                <td>
+                    {{ race.raceLength }} minutos
+                </td>
+                <td>
+                    <a href="{{ path('historic_race', {'id': race.id })}}">
+                        Resultados
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('historic_championships') }}">Volver a los campeonatos</a>
+{% endblock %}

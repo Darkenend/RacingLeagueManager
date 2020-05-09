@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Historico{% endblock %}
+{% block body %}
+    <table class="table table-striped table-borderless">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Coche</th>
+            <th>Vuelta Rapida</th>
+            <th>Duracion de Carrera</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td>
+                    {{ result.racenumber }}
+                </td>
+                <td>
+                    {{ result.carmodel | replace({"0": "Porsche 991 GT3", "1": "Mercedes AMG GT3", "2": "Ferrari 488 GT3",
+                        "3": "Audi R8 LMS", "4": "Lamborghini Huracan GT3", "5": "McLaren 650S GT3", "6": "Nissan GT-R Nismo GT3 2018",
+                        "7": "BMW M6 GT3", "8": "Bentley Continental GT3 2018", "9": "Porsche 911.2 GT3 Cup",
+                        "10": "Nissan GT-R Nismo GT3 2017", "11": "Bentley Continental GT3 2016", "12": "Aston Martin Vantage V12 GT3",
+                        "13": "Lamborghini Gallardo R-EX", "14": "Jaguar G3", "15": "Lexus RC F GT3", "16": "Lamborghini Huracan Evo",
+                        "17": "Honda NSX GT3", "18": "Lamborghini Huracan SuperTrofeo", "19": "Audi R8 LMS Evo",
+                        "20": "Aston Martin Vantage V8", "21": "Honda NSX Evo", "22": "McLaren 720S GT3", "23": "Porsche 911 II GT3 R"}) }}
+                </td>
+                <td>
+                    {% set bestlap_split = (result.bestlap | split('', 3)) %}
+                    {% set ms = bestlap_split[1] %}
+                    {% set seconds = bestlap_split[0] %}
+                    {% set hours = seconds / 3600 % 60 %}
+
+                    {% if hours  < 1 %}
+                        {# set hours to nothing #}
+                        {% set hours = null %}
+                    {% else %}
+                        {# output hours with a colon: #}
+                        {% set hours = hours|number_format ~ ':' %}
+                    {% endif %}
+
+                    {# set minutes remain but no seconds and with a colon #}
+                    {% set minutes = seconds / 60 % 60  ~ ':' %}
+
+                    {# set seconds but no minutes or hours #}
+                    {% set seconds = seconds % 60 %}
+                    {% if seconds < 10 %}
+                        {# add a leading zero if seconds are less than 10 #}
+                        {% set seconds = '0' ~ seconds %}
+                    {% endif %}
+                    {% if hours != null %}{{ hours }}{% endif %}{{ minutes }}{{ seconds }}.{{ ms }}
+                </td>
+                <td>
+                    {% set result_split = (result.result | split('', 3)) %}
+                    {% set ms = result_split[1] %}
+                    {% set seconds = result_split[0] %}
+                    {% set hours = seconds / 3600 % 60 %}
+
+                    {% if hours  < 1 %}
+                        {# set hours to nothing #}
+                        {% set hours = null %}
+                    {% else %}
+                        {# output hours with a colon: #}
+                        {% set hours = hours|number_format ~ ':' %}
+                    {% endif %}
+
+                    {# set minutes remain but no seconds and with a colon #}
+                    {% set minutes = seconds / 60 % 60  ~ ':' %}
+
+                    {# set seconds but no minutes or hours #}
+                    {% set seconds = seconds % 60 %}
+                    {% if seconds < 10 %}
+                        {# add a leading zero if seconds are less than 10 #}
+                        {% set seconds = '0' ~ seconds %}
+                    {% endif %}
+                    {% if hours != null %}{{ hours }}{% endif %}{{ minutes }}{{ seconds }}.{{ ms }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('historic_championships') }}">Volver a los campeonatos</a>
+{% endblock %}
+{% macro secondsToMinutes(seconds) %}
+
+    {# set hours minus minutes/seconds #}
+
+
+    {{ hours }}{{ minutes}}{{ seconds }}
+
+{% endmacro %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Historico{% endblock %}
+{% block body %}
+    <ul class="list-group">
+        {% for championship in championships %}
+            <li class="list-group-item">
+                <a href="{{ path('historic_races', {'id': championship.id })}}">
+                    {{ championship.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

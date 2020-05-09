@@ -23,20 +23,21 @@ class Championship
      */
     private $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="championships")
-     */
-    private $teams;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Race", mappedBy="championship_id")
      */
     private $races;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ChampionshipEntries", mappedBy="championship")
+     */
+    private $championshipEntries;
+
     public function __construct()
     {
-        $this->teams = new ArrayCollection();
         $this->races = new ArrayCollection();
+        $this->championshipEntries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,32 +53,6 @@ class Championship
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Team[]
-     */
-    public function getTeams(): Collection
-    {
-        return $this->teams;
-    }
-
-    public function addTeam(Team $team): self
-    {
-        if (!$this->teams->contains($team)) {
-            $this->teams[] = $team;
-        }
-
-        return $this;
-    }
-
-    public function removeTeam(Team $team): self
-    {
-        if ($this->teams->contains($team)) {
-            $this->teams->removeElement($team);
-        }
 
         return $this;
     }
@@ -107,6 +82,37 @@ class Championship
             // set the owning side to null (unless already changed)
             if ($race->getChampionshipId() === $this) {
                 $race->setChampionshipId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChampionshipEntries[]
+     */
+    public function getChampionshipEntries(): Collection
+    {
+        return $this->championshipEntries;
+    }
+
+    public function addChampionshipEntry(ChampionshipEntries $championshipEntry): self
+    {
+        if (!$this->championshipEntries->contains($championshipEntry)) {
+            $this->championshipEntries[] = $championshipEntry;
+            $championshipEntry->setChampionship($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChampionshipEntry(ChampionshipEntries $championshipEntry): self
+    {
+        if ($this->championshipEntries->contains($championshipEntry)) {
+            $this->championshipEntries->removeElement($championshipEntry);
+            // set the owning side to null (unless already changed)
+            if ($championshipEntry->getChampionship() === $this) {
+                $championshipEntry->setChampionship(null);
             }
         }
 

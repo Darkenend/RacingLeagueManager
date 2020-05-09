@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Championship;
+use App\Entity\ChampionshipEntries;
 use App\Entity\Race;
 use App\Entity\Team;
 use App\Entity\TeamEntryList;
@@ -86,9 +87,45 @@ class AppFixtures extends Fixture
         $race_3 = new Race();
         $race_4 = new Race();
         $race_1->setTrack("monza_2019");
+        $race_1->setAmbientTemp(24);
+        $race_1->setCloudLevel(0.3);
+        $race_1->setRain(0.1);
+        $race_1->setPracticeHour(10);
+        $race_1->setPracticeLength(5);
+        $race_1->setQualyHour(14);
+        $race_1->setQualyLength(30);
+        $race_1->setRaceHour(14);
+        $race_1->setRaceLength(180);
         $race_2->setTrack("suzuka_2019");
+        $race_2->setAmbientTemp(24);
+        $race_2->setCloudLevel(0.6);
+        $race_2->setRain(0.3);
+        $race_2->setPracticeHour(10);
+        $race_2->setPracticeLength(5);
+        $race_2->setQualyHour(14);
+        $race_2->setQualyLength(30);
+        $race_2->setRaceHour(14);
+        $race_2->setRaceLength(60*9);
         $race_3->setTrack("laguna_seca_2019");
+        $race_3->setAmbientTemp(21);
+        $race_3->setCloudLevel(0.3);
+        $race_3->setRain(0);
+        $race_3->setPracticeHour(10);
+        $race_3->setPracticeLength(5);
+        $race_3->setQualyHour(14);
+        $race_3->setQualyLength(30);
+        $race_3->setRaceHour(14);
+        $race_3->setRaceLength(240);
         $race_4->setTrack("nurburgring_2019");
+        $race_4->setAmbientTemp(20);
+        $race_4->setCloudLevel(0.3);
+        $race_4->setRain(0.1);
+        $race_4->setPracticeHour(10);
+        $race_4->setPracticeLength(5);
+        $race_4->setQualyHour(14);
+        $race_4->setQualyLength(30);
+        $race_4->setRaceHour(14);
+        $race_4->setRaceLength(360);
 
         // Entrylists
             // Race 1
@@ -165,9 +202,18 @@ class AppFixtures extends Fixture
         $championship->addRace($race_2);
         $championship->addRace($race_3);
         $championship->addRace($race_4);
-        $championship->addTeam($team_1);
-        $championship->addTeam($team_2);
-        $championship->addTeam($team_3);
+        $championshipEntry_1 = new ChampionshipEntries();
+        $championshipEntry_2 = new ChampionshipEntries();
+        $championshipEntry_3 = new ChampionshipEntries();
+        $championshipEntry_1->setTeam($team_1);
+        $championshipEntry_2->setTeam($team_2);
+        $championshipEntry_3->setTeam($team_3);
+        $championshipEntry_1->setChampionship($championship);
+        $championshipEntry_2->setChampionship($championship);
+        $championshipEntry_3->setChampionship($championship);
+        $championshipEntry_1->setPoints(0);
+        $championshipEntry_2->setPoints(0);
+        $championshipEntry_3->setPoints(0);
 
         // Manager
         $manager->persist($team_1);
@@ -193,6 +239,9 @@ class AppFixtures extends Fixture
         $manager->persist($entrylist_3_2);
         $manager->persist($entrylist_3_3);
         $manager->persist($championship);
+        $manager->persist($championshipEntry_1);
+        $manager->persist($championshipEntry_2);
+        $manager->persist($championshipEntry_3);
         $manager->flush();
     }
 

@@ -19,6 +19,16 @@ class TeamEntryListRepository extends ServiceEntityRepository
         parent::__construct($registry, TeamEntryList::class);
     }
 
+    public function getRaceResult($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.race_id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.result', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return TeamEntryList[] Returns an array of TeamEntryList objects
     //  */

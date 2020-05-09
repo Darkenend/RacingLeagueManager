@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Crear Campeonato{% endblock %}
+{% block body %}
+    <h1>
+        Creacion de Campeonato
+    </h1>
+    {{ form(form) }}
+    <hr>
+
+    <a class="btn btn-info" href="{{ path('admin_home') }}">Administracion</a>
+{% endblock %}

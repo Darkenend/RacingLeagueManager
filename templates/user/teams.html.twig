@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Tus Equipos{% endblock %}
+{% block body %}
+        <ul>
+            {% for team in teams %}
+                <li>
+                    <a href="{{ path('team_profile', {'id': team.team.id }) }}">
+                        {{ team.team.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <a href="{{ path('user_home') }}">Back to the User Panel</a>
+{% endblock %}

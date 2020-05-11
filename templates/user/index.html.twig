@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | User Panel{% endblock %}
+
+{% block body %}
+    <h1>Welcome to Racing League Manager!</h1>
+    You're currently in the user panel, {{ app.user.name }} {{ app.user.lastname }}:
+    <ul>
+        <li>See Championships</li>
+        <li>
+            <a href="{{ path('user_teams') }}">
+                See Teams
+            </a>
+        </li>
+        <li><a href="{{ path('historic_championships') }}">See Past Championships and Races Results</a></li>
+    </ul>
+    <hr>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin_home') }}">Go to the Admin Panel</a>
+    {% endif %}
+    <br>
+    <a href="{{ path('app_logout') }}">Log out of your account</a>
+{% endblock %}

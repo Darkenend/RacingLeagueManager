@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | {{ team.name }}{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ team.name }}
+    </h1>
+    <table class="table table-striped table-borderless">
+        <thead class="thead-dark">
+        <tr>
+            <th>Driver</th>
+            <th>Rank</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for driver in teamDrivers %}
+                <tr>
+                    <td>
+                        {{ driver.driver.name }} {{ driver.driver.lastname }}
+                    </td>
+                    <td>
+                        {{ driver.rank | replace({"0": "To Be Accepted", "1": "Member", "2": "Admin"}) }}
+                    </td>
+                    <td>
+                        {% if driver.rank != 2 %}
+                            <button>Rank Up</button>
+                        {% endif %}
+                        {% if driver.rank != 0 %}
+                            <button>Rank Down</button>
+                        {% else %}
+                            <button>Reject Membership</button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <a href="{{ path('user_teams') }}">Go back to your teams</a>
+    <a href="{{ path('user_home') }}">Go back to your home</a>
+{% endblock %}

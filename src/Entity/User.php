@@ -51,11 +51,6 @@ class User implements UserInterface
     private $steamid;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="drivers")
-     */
-    private $teams;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Conversation", mappedBy="user")
      */
     private $conversations;
@@ -65,11 +60,16 @@ class User implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TeamDrivers", mappedBy="driver")
+     */
+    private $teamDrivers;
+
     public function __construct()
     {
-        $this->teams = new ArrayCollection();
         $this->conversations = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->teamDrivers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,31 +186,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Team[]
-     */
-    public function getTeams(): Collection
-    {
-        return $this->teams;
-    }
-
-    public function addTeam(Team $team): self
-    {
-        if (!$this->teams->contains($team)) {
-            $this->teams[] = $team;
-        }
-
-        return $this;
-    }
-
-    public function removeTeam(Team $team): self
-    {
-        if ($this->teams->contains($team)) {
-            $this->teams->removeElement($team);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Conversation[]
@@ -268,6 +243,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($message->getCreator() === $this) {
                 $message->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TeamDrivers[]
+     */
+    public function getTeamDrivers(): Collection
+    {
+        return $this->teamDrivers;
+    }
+
+    public function addTeamDriver(TeamDrivers $teamDriver): self
+    {
+        if (!$this->teamDrivers->contains($teamDriver)) {
+            $this->teamDrivers[] = $teamDriver;
+            $teamDriver->setDriver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamDriver(TeamDrivers $teamDriver): self
+    {
+        if ($this->teamDrivers->contains($teamDriver)) {
+            $this->teamDrivers->removeElement($teamDriver);
+            // set the owning side to null (unless already changed)
+            if ($teamDriver->getDriver() === $this) {
+                $teamDriver->setDriver(null);
             }
         }
 

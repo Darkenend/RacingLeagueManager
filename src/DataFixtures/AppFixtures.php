@@ -6,6 +6,7 @@ use App\Entity\Championship;
 use App\Entity\ChampionshipEntries;
 use App\Entity\Race;
 use App\Entity\Team;
+use App\Entity\TeamDrivers;
 use App\Entity\TeamEntryList;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -26,14 +27,17 @@ class AppFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-
+        $mailsuffix = "@gmail.com";
         // Equipos
         $team_1 = new Team();
         $team_1->setName("Family Sim Racing");
+        $team_1->setPrivacy(0);
         $team_2 = new Team();
         $team_2->setName("Ingobernables");
+        $team_2->setPrivacy(1);
         $team_3 = new Team();
         $team_3->setName("Doug Henderson Racing");
+        $team_3->setPrivacy(2);
 
         // Usuarios
         $user_1 = new User();
@@ -46,40 +50,61 @@ class AppFixtures extends Fixture
         $user_1->setName("Álvaro");
         $user_1->setLastname("Real");
         $user_1->setSteamid("76561191111111111");
-        $user_1->setEmail(strtolower($this->stripAccents($user_1->getName())).strtolower($this->stripAccents($user_1->getLastname()))."@gmail.com");
+        $user_1->setEmail($this->mailFormer($user_1).$mailsuffix);
         $user_1->setPassword($this->passwordEncoder->encodePassword($user_1, 'password'));
-        $user_1->addTeam($team_1);
-        $user_1->addTeam($team_2);
+        $teamdriver_1 = new TeamDrivers();
+        $teamdriver_1->setDriver($user_1);
+        $teamdriver_1->setTeam($team_1);
+        $teamdriver_1->setRank(1);
+        $teamdriver_2 = new TeamDrivers();
+        $teamdriver_2->setDriver($user_1);
+        $teamdriver_2->setTeam($team_2);
+        $teamdriver_2->setRank(2);
         $user_2->setName("Javier");
         $user_2->setLastname("Ramirez");
         $user_2->setSteamid("76561191211111111");
-        $user_2->setEmail(strtolower($this->stripAccents($user_2->getName())).strtolower($this->stripAccents($user_2->getLastname()))."@gmail.com");
+        $user_2->setEmail($this->mailFormer($user_2).$mailsuffix);
         $user_2->setPassword($this->passwordEncoder->encodePassword($user_2, 'password'));
-        $user_2->addTeam($team_1);
+        $teamdriver_3 = new TeamDrivers();
+        $teamdriver_3->setDriver($user_2);
+        $teamdriver_3->setTeam($team_1);
+        $teamdriver_3->setRank(2);
         $user_3->setName("Carlos");
         $user_3->setLastname("Vidal");
         $user_3->setSteamid("76561191311111111");
-        $user_3->setEmail(strtolower($this->stripAccents($user_3->getName())).strtolower($this->stripAccents($user_3->getLastname()))."@gmail.com");
+        $user_3->setEmail($this->mailFormer($user_3).$mailsuffix);
         $user_3->setPassword($this->passwordEncoder->encodePassword($user_3, 'password'));
-        $user_3->addTeam($team_1);
+        $teamdriver_4 = new TeamDrivers();
+        $teamdriver_4->setDriver($user_3);
+        $teamdriver_4->setTeam($team_1);
+        $teamdriver_4->setRank(0);
         $user_4->setName("Dano");
         $user_4->setLastname("Cumbiote");
         $user_4->setSteamid("76561191411111111");
-        $user_4->setEmail(strtolower($this->stripAccents($user_4->getName())).strtolower($this->stripAccents($user_4->getLastname()))."@gmail.com");
+        $user_4->setEmail($this->mailFormer($user_4).$mailsuffix);
         $user_4->setPassword($this->passwordEncoder->encodePassword($user_4, 'password'));
-        $user_4->addTeam($team_2);
+        $teamdriver_5 = new TeamDrivers();
+        $teamdriver_5->setDriver($user_4);
+        $teamdriver_5->setTeam($team_2);
+        $teamdriver_5->setRank(1);
         $user_5->setName("Jimmy");
         $user_5->setLastname("Broadbent");
         $user_5->setSteamid("76561191511111111");
-        $user_5->setEmail(strtolower($this->stripAccents($user_5->getName())).strtolower($this->stripAccents($user_5->getLastname()))."@gmail.com");
+        $user_5->setEmail($this->mailFormer($user_5).$mailsuffix);
         $user_5->setPassword($this->passwordEncoder->encodePassword($user_5, 'password'));
-        $user_5->addTeam($team_3);
+        $teamdriver_6 = new TeamDrivers();
+        $teamdriver_6->setDriver($user_5);
+        $teamdriver_6->setTeam($team_3);
+        $teamdriver_6->setRank(1);
         $user_6->setName("Stephen");
         $user_6->setLastname("Bailey");
         $user_6->setSteamid("76561191611111111");
-        $user_6->setEmail(strtolower($this->stripAccents($user_6->getName())).strtolower($this->stripAccents($user_6->getLastname()))."@gmail.com");
+        $user_6->setEmail($this->mailFormer($user_6).$mailsuffix);
         $user_6->setPassword($this->passwordEncoder->encodePassword($user_6, 'password'));
-        $user_6->addTeam($team_3);
+        $teamdriver_7 = new TeamDrivers();
+        $teamdriver_7->setDriver($user_6);
+        $teamdriver_7->setTeam($team_3);
+        $teamdriver_7->setRank(2);
 
         // Carreras
         $race_1 = new Race();
@@ -225,6 +250,13 @@ class AppFixtures extends Fixture
         $manager->persist($user_4);
         $manager->persist($user_5);
         $manager->persist($user_6);
+        $manager->persist($teamdriver_1);
+        $manager->persist($teamdriver_2);
+        $manager->persist($teamdriver_3);
+        $manager->persist($teamdriver_4);
+        $manager->persist($teamdriver_5);
+        $manager->persist($teamdriver_6);
+        $manager->persist($teamdriver_7);
         $manager->persist($race_1);
         $manager->persist($race_2);
         $manager->persist($race_3);
@@ -243,6 +275,10 @@ class AppFixtures extends Fixture
         $manager->persist($championshipEntry_2);
         $manager->persist($championshipEntry_3);
         $manager->flush();
+    }
+
+    public function mailFormer(User $user): string {
+        return strtolower($this->stripAccents($user->getName())).strtolower($this->stripAccents($user->getLastname()));
     }
 
     public function stripAccents($original): string {

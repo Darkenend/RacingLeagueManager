@@ -23,21 +23,25 @@ class Team
      */
     private $name;
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="teams")
-     */
-    private $drivers;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ChampionshipEntries", mappedBy="team")
      */
     private $championshipEntries;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $privacy;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TeamDrivers", mappedBy="team")
+     */
+    private $teamDrivers;
+
     public function __construct()
     {
-        $this->drivers = new ArrayCollection();
         $this->championshipEntries = new ArrayCollection();
+        $this->teamDrivers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,33 +61,6 @@ class Team
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getDrivers(): Collection
-    {
-        return $this->drivers;
-    }
-
-    public function addDriver(User $driver): self
-    {
-        if (!$this->drivers->contains($driver)) {
-            $this->drivers[] = $driver;
-            $driver->addTeam($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDriver(User $driver): self
-    {
-        if ($this->drivers->contains($driver)) {
-            $this->drivers->removeElement($driver);
-            $driver->removeTeam($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|ChampionshipEntries[]
@@ -110,6 +87,49 @@ class Team
             // set the owning side to null (unless already changed)
             if ($championshipEntry->getTeam() === $this) {
                 $championshipEntry->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPrivacy(): ?int
+    {
+        return $this->privacy;
+    }
+
+    public function setPrivacy(int $privacy): self
+    {
+        $this->privacy = $privacy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TeamDrivers[]
+     */
+    public function getTeamDrivers(): Collection
+    {
+        return $this->teamDrivers;
+    }
+
+    public function addTeamDriver(TeamDrivers $teamDriver): self
+    {
+        if (!$this->teamDrivers->contains($teamDriver)) {
+            $this->teamDrivers[] = $teamDriver;
+            $teamDriver->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamDriver(TeamDrivers $teamDriver): self
+    {
+        if ($this->teamDrivers->contains($teamDriver)) {
+            $this->teamDrivers->removeElement($teamDriver);
+            // set the owning side to null (unless already changed)
+            if ($teamDriver->getTeam() === $this) {
+                $teamDriver->setTeam(null);
             }
         }
 

@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}RLM | {{ team.name }}{% endblock %}
 
 {% block body %}
@@ -24,14 +23,33 @@
                         {{ driver.rank | replace({"0": "To Be Accepted", "1": "Member", "2": "Admin"}) }}
                     </td>
                     <td>
-                        {% if driver.rank != 2 %}
-                            <button>Rank Up</button>
-                        {% endif %}
-                        {% if driver.rank != 0 %}
-                            <button>Rank Down</button>
-                        {% else %}
-                            <button>Reject Membership</button>
-                        {% endif %}
+                        {% for check in teamDrivers %}
+                            {% if check.driver.id == app.user.id and check.rank == 2 %}
+                                {% if driver.rank != 2 %}
+                                    <button>
+                                        <a href="{{ path('team_up', {'driverid': driver.driver.id, 'teamid': team.id }) }}">
+                                            {% if driver.rank == 1 %}
+                                                Rank Up
+                                            {% else %}
+                                                Accept Membership
+                                            {% endif %}
+                                        </a>
+                                    </button>
+                                    <button>
+                                        {% if driver.rank != 0 %}
+                                            <a href="{{ path('team_down', {'driverid': driver.driver.id, 'teamid': team.id}) }}">
+                                                Rank Down
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ path('team_reject', {'driverid': driver.driver.id, 'teamid': team.id}) }}">
+                                                Reject Membership
+                                            </a>
+                                        {% endif %}
+                                    </button>
+
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     </td>
                 </tr>
             {% endfor %}

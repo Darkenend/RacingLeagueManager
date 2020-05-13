@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Team;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +27,8 @@ class UserController extends AbstractController
      */
     public function seeTeams()
     {
+        $allteams = $this->getDoctrine()->getRepository(Team::class)->findAll();
         $teams = $this->getDoctrine()->getRepository(User::class)->find($this->getUser()->getId())->getTeamDrivers();
-        return $this->render('user/teams.html.twig', array('teams'=>$teams));
+        return $this->render('user/teams.html.twig', array('teams'=>$teams, 'allteams'=>$allteams));
     }
 }

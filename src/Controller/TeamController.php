@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Team;
+use App\Entity\TeamDrivers;
 use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,28 +20,25 @@ class TeamController extends AbstractController
      */
     public function index($id)
     {
-        $valid = false;
-        $userTeams = $this->getDoctrine()->getRepository(User::class)->find($this->getUser()->getId())->getTeamDrivers();
-        foreach ($userTeams as $userTeam) if ($userTeam->getId() == $id) $valid = true;
-        if ($valid) {
-            $team = $this->getDoctrine()->getRepository(Team::class)->find($id);
-            $teamDrivers = $this->getDoctrine()->getRepository(Team::class)->find($id)->getTeamDrivers();
-            return $this->render('team/index.html.twig', array('team' => $team, 'teamDrivers' => $teamDrivers));
-        } else return $this->render('user/teams.html.twig', array('teams'=>$userTeams));
+        $team = $this->getDoctrine()->getRepository(Team::class)->find($id);
+        $teamDrivers = $this->getDoctrine()->getRepository(Team::class)->find($id)->getTeamDrivers();
+        return $this->render('team/index.html.twig', array('team' => $team, 'teamDrivers' => $teamDrivers));
     }
 
     /**
      * @Route("/rankup/{driverid}_{teamid}", name="_up")
      */
-    public function rankUp($driverid, $teamid)
+    public function rankUp(int $driverid, int $teamid)
     {
-        $teamDrivers = $this->getDoctrine()->getRepository(Team::class)->find($teamid)->getTeamDrivers();
-        foreach ($teamDrivers as $driver) {
-            if ($driver->getId() == $driverid && $driver->getRank() != 2) {
-                $driver->setRank($driver->getRank()+1);
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-            }
+        $teamDrivers = $this->getDoctrine()->getRepository(TeamDrivers::class)->findBy(['team'=>$teamid]);
+        $teamDriverEntry = $this->getDoctrine()->getRepository(TeamDrivers::class)->findOneBy([
+            'driver' => $driverid,
+            'team' => $teamid
+        ]);
+        if ($teamDriverEntry->getDriver()->getId() == $driverid && $teamDriverEntry->getRank() != 2) {
+            $teamDriverEntry->increaseRank();
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
         }
         $team = $this->getDoctrine()->getRepository(Team::class)->find($teamid);
         return $this->render('team/index.html.twig', array('team' => $team, 'teamDrivers' => $teamDrivers));
@@ -49,15 +47,17 @@ class TeamController extends AbstractController
     /**
      * @Route("/rankdown/{driverid}_{teamid}", name="_down")
      */
-    public function rankDown($driverid, $teamid)
+    public function rankDown(int $driverid, int $teamid)
     {
-        $teamDrivers = $this->getDoctrine()->getRepository(Team::class)->find($teamid)->getTeamDrivers();
-        foreach ($teamDrivers as $driver) {
-            if ($driver->getId() == $driverid && $driver->getRank() != 0) {
-                $driver->setRank($driver->getRank()-1);
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-            }
+        $teamDrivers = $this->getDoctrine()->getRepository(TeamDrivers::class)->findBy(['team'=>$teamid]);
+        $teamDriverEntry = $this->getDoctrine()->getRepository(TeamDrivers::class)->findOneBy([
+            'driver' => $driverid,
+            'team' => $teamid
+        ]);
+        if ($teamDriverEntry->getDriver()->getId() == $driverid && $teamDriverEntry->getRank() != 2) {
+            $teamDriverEntry->decreaseRank();
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
         }
         $team = $this->getDoctrine()->getRepository(Team::class)->find($teamid);
         return $this->render('team/index.html.twig', array('team' => $team, 'teamDrivers' => $teamDrivers));
@@ -66,7 +66,7 @@ class TeamController extends AbstractController
     /**
      * @Route("/reject/{driverid}_{teamid}", name="_reject")
      */
-    public function reject($driverid, $teamid)
+    public function reject(int $driverid, int $teamid)
     {
         $teamDrivers = $this->getDoctrine()->getRepository(Team::class)->find($teamid)->getTeamDrivers();
         foreach ($teamDrivers as $driver) {
@@ -78,5 +78,20 @@ class TeamController extends AbstractController
         }
         $team = $this->getDoctrine()->getRepository(Team::class)->find($teamid);
         return $this->render('team/index.html.twig', array('team' => $team, 'teamDrivers' => $teamDrivers));
+    }
+
+    /**
+     * @Route("/apply/{driverid}_{teamid}", name="_invite")
+     */
+    public function invite(int $driverid, int $teamid)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $teamDriver = new TeamDrivers();
+        $teamDriver->setRank(0);
+        $teamDriver->setDriver($entityManager->getRepository(User::class)->find($driverid));
+        $teamDriver->setTeam($entityManager->getRepository(Team::class)->find($teamid));
+        $entityManager->persist($teamDriver);
+        $entityManager->flush();
+        return $this->render('user/teams.html.twig');
     }
 }

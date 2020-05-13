@@ -1,15 +1,49 @@
 {% extends 'base.html.twig' %}
-{% block title %}RLM | Tus Equipos{% endblock %}
+{% set repeatedIds = [] %}
+{% for team in allteams %}
+    {% for mine in teams %}
+        {% if team.id == mine.team.id %}
+            {% set repeatedIds = repeatedIds|merge([team.id]) %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% block title %}RLM | Your Teams{% endblock %}
 {% block body %}
-        <ul>
-            {% for team in teams %}
+    <ul>
+        {% for team in teams %}
+            {% if team.rank != 0 %}
                 <li>
                     <a href="{{ path('team_profile', {'id': team.team.id }) }}">
                         {{ team.team.name }}
                     </a>
                 </li>
-            {% endfor %}
-        </ul>
-        <hr>
-        <a href="{{ path('user_home') }}">Back to the User Panel</a>
+            {% endif %}
+        {% endfor %}
+    {% for team in teams %}
+        {% if team.rank == 0 %}
+            <li>
+                <a href="{{ path('team_up', {'driverid': app.user.id, 'teamid': team.team.id }) }}">
+                    Invitation to {{ team.team.name }}
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    <hr>
+    <h3>
+        Teams Open to Apply
+    </h3>
+    <ul>
+        {% for team in allteams %}
+            {% if team.id not in repeatedIds and team.privacy == 0 %}
+                <li>
+                    <a href="{{ path('team_invite', {'driverid': app.user.id, 'teamid': team.id}) }}">
+                        {{ team.name }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <hr>
+    <a href="{{ path('user_home') }}">Back to the User Panel</a>
 {% endblock %}

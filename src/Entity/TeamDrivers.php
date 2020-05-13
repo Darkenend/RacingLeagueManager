@@ -73,4 +73,16 @@ class TeamDrivers
 
         return $this;
     }
+
+    public function increaseRank(): self
+    {
+        $this->rank = $this->rank+1;
+        return $this;
+    }
+
+    public function decreaseRank(): self
+    {
+        $this->rank = $this->rank-1;
+        return $this;
+    }
 }

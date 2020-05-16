@@ -33,9 +33,11 @@
                 {% endfor %}
             </tbody>
         </table>
+        <hr>
     {% endif %}
-    <a href="">
+    <a href="{{ path('race_entrylist', {'id': race.id }) }}">
         Generate JSON of Entrylist
     </a>
+    <hr>
     <a href="{{ path('race_dashboard') }}">Go Back to Championships</a>
 {% endblock %}

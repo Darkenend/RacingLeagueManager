@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Championship;
 use App\Entity\Race;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,5 +40,36 @@ class RaceController extends AbstractController
     {
         $race = $this->getDoctrine()->getRepository(Race::class)->find($id);
         return $this->render("race/info.html.twig", array('race'=>$race, 'entrylist'=>$race->getTeamEntryLists()));
+    }
+
+    /**
+     * @Route("/entrylist/{id}", name="_entrylist")
+     */
+    public function generateEntryList($id, LoggerInterface $logger)
+    {
+        $race = $this->getDoctrine()->getRepository(Race::class)->find($id);
+        $entrylist = $race->getTeamEntryLists();
+        $entrylist_json = '{"entries":[';
+        foreach ($entrylist as $entry) {
+            $teamdrivers = $entry->getTeamId()->getTeamDrivers();
+            $entrylist_json = $entrylist_json.'{"drivers":[';
+            $drivercount = 0;
+            foreach ($teamdrivers as $driver) {
+                $entrylist_json = $drivercount == 0 ? $entrylist_json . '{"firstName":"' . $driver->getDriver()->getName() . '", "lastName": "' . $driver->getDriver()->getLastname() . '", "playerID": "S' . $driver->getDriver()->getSteamid() . '"}' : $entrylist_json . ',{"firstName":"' . $driver->getDriver()->getName() . '", "lastName": "' . $driver->getDriver()->getLastname() . '", "playerID": "S' . $driver->getDriver()->getSteamid() . '"}';
+                $drivercount++;
+            }
+            $entrylist_json = $entrylist_json.'],"raceNumber":'.$entry->getRacenumber().',';
+            $entrylist_json = $entrylist_json.'"forcedCarModel":'.$entry->getCarmodel();
+            $entrylist_json = !next($entrylist) ? $entrylist_json . '}' : $entrylist_json . '},';
+        }
+        $entrylist_json = $entrylist_json.'], "forceEntryList": 0}';
+        /*
+        $filepath = getenv('SERVER_FOLDER')."/cfg/entrylist.json";
+        $logger->debug("Server Folder Path:", [
+            'cause' => $filepath
+        ]);
+        file_put_contents(getenv('SERVER_FOLDER')."/cfg/entrylist.json", $entrylist_json);
+        */
+        return $this->render("race/info.html.twig", array('race'=>$race, 'entrylist'=>$entrylist));
     }
 }

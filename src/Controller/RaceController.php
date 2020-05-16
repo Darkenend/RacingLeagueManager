@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Championship;
 use App\Entity\Race;
-use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,7 +44,7 @@ class RaceController extends AbstractController
     /**
      * @Route("/entrylist/{id}", name="_entrylist")
      */
-    public function generateEntryList($id, LoggerInterface $logger)
+    public function generateEntryList($id)
     {
         $race = $this->getDoctrine()->getRepository(Race::class)->find($id);
         $entrylist = $race->getTeamEntryLists();
@@ -63,13 +62,8 @@ class RaceController extends AbstractController
             $entrylist_json = !next($entrylist) ? $entrylist_json . '}' : $entrylist_json . '},';
         }
         $entrylist_json = $entrylist_json.'], "forceEntryList": 0}';
-        /*
-        $filepath = getenv('SERVER_FOLDER')."/cfg/entrylist.json";
-        $logger->debug("Server Folder Path:", [
-            'cause' => $filepath
-        ]);
-        file_put_contents(getenv('SERVER_FOLDER')."/cfg/entrylist.json", $entrylist_json);
-        */
+        $filepath = $_SERVER['APP_FOLDER']."\cfg\\entrylist.json";
+        file_put_contents($filepath, $entrylist_json);
         return $this->render("race/info.html.twig", array('race'=>$race, 'entrylist'=>$entrylist));
     }
 }

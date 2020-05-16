@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -77,6 +78,11 @@ class Race
      * @ORM\Column(type="integer")
      */
     private $race_length;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $greenflagtime;
 
     public function __construct()
     {
@@ -247,6 +253,18 @@ class Race
     public function setRaceLength(int $race_length): self
     {
         $this->race_length = $race_length;
+
+        return $this;
+    }
+
+    public function getGreenflagtime(): ?DateTimeInterface
+    {
+        return $this->greenflagtime;
+    }
+
+    public function setGreenflagtime(DateTimeInterface $greenflagtime): self
+    {
+        $this->greenflagtime = $greenflagtime;
 
         return $this;
     }

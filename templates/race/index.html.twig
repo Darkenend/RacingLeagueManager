@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
-{% block title %}RLM | Historic{% endblock %}
+{% block title %}RLM | Race Information{% endblock %}
 {% block body %}
     <h1>
-        Championships
+        Championships Info
     </h1>
     <ul class="list-group">
         {% for championship in championships %}
             <li class="list-group-item">
-                <a href="{{ path('historic_races', {'id': championship.id })}}">
+                <a href="{{ path('race_champ', {'id': championship.id })}}">
                     {{ championship.name }}
                 </a>
             </li>
         {% endfor %}
     </ul>
     <hr>
-    <a href="{{ path('user_home') }}">
-        User Home
+    <a href="{{ path('admin_home') }}">
+        Admin Home
     </a>
 {% endblock %}

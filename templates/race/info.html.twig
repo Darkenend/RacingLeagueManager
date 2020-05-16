@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Race Info{% endblock %}
+{% block body %}
+    <h1>
+        Race Info
+    </h1>
+    <h2> Track: {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | capitalize }}</h2>
+    <h2> Length: {{ race.raceLength }} Minutes</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor explicabo optio quas qui rerum. Ab assumenda delectus doloremque error exercitationem harum illo labore magnam nihil nisi, nostrum saepe vel vero.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis eveniet explicabo inventore labore quasi saepe tempora? Ad architecto aspernatur, eius exercitationem modi nemo, nisi odio quos similique suscipit temporibus.</p>
+    {% if entrylist | length != 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Team Name
+                    </th>
+                    <th>
+                        Race #
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entrylist %}
+                    <tr>
+                        <td>
+                            {{ entry.teamId.name }}
+                        </td>
+                        <td>
+                            {{ entry.racenumber }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+    {% endif %}
+    <a href="{{ path('race_entrylist', {'id': race.id }) }}">
+        Generate JSON of Entrylist
+    </a>
+    <hr>
+    <a href="{{ path('race_dashboard') }}">Go Back to Championships</a>
+{% endblock %}

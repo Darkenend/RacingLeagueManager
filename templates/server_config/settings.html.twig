@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | settings.json{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>settings.json</h1>
+        {{ form(form) }}
+        <hr>
+        <a href="{{ path('serverconfig_index') }}">Back to the Server Configuration Panel</a>
+    </div>
+{% endblock %}

@@ -6,10 +6,31 @@
     <h1>Welcome to Racing League Manager!</h1>
     You're currently in the admin panel, {{ app.user.name }} {{ app.user.lastname }}:
     <ul>
-        <li><a href="{{ path('admin_championship') }}">Create Championship</a></li>
-        <li><a href="{{ path('admin_race') }}">Create Race</a></li>
-        <li><a href="{{ path('race_dashboard') }}">Next Races Information</a></li>
-        <li><a href="{{ path('historic_championships') }}">See Past Championships and Races Results</a></li>
+        <li>
+            <a href="{{ path('admin_championship') }}">
+                Create Championship
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_race') }}">
+                Create Race
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('race_dashboard') }}">
+                Next Races Information
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('historic_championships') }}">
+                See Past Championships and Races Results
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('serverconfig_index') }}">
+                Configure Server
+            </a>
+        </li>
     </ul>
     <hr>
     <a href="{{ path('user_home') }}">Back to the User Panel</a>

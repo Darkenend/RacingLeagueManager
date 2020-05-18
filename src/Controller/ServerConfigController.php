@@ -38,8 +38,7 @@ class ServerConfigController extends AbstractController
             $formdata = $form->getData();
             $filepath = $_SERVER['APP_FOLDER']."\cfg\\configuration.json";
             $configstring = "{\"udpPort\": ".$formdata['port'].",\"tcpPort\": ".$formdata['port'].",\"maxConnections\": ".$formdata['maxConnections'].",\"lanDiscovery\": 0,\"registerToLobby\": 0,\"configVersion\": 1}";
-            if (file_exists($filepath)) unlink($filepath);
-            file_put_contents($filepath, $configstring);
+            $this->dumpJSON($filepath, $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "configuration.json has been generated"
             ]);
@@ -64,8 +63,7 @@ class ServerConfigController extends AbstractController
             if ($formdata['shortFormationLap']) $helper2 = 1;
             else $helper2 = 0;
             $configstring = "{\"serverName\": \"".$formdata['serverName']."\",\"adminPassword\": \"".$formdata['adminPassword']."\",\"trackMedalsRequirement\": 3,\"safetyRatingRequirement\": 50, \"racecraftRatingRequirement\": -1,\"maxCarSlots\": ".$formdata['maxCarSlots'].",\"dumpLeaderboards\": 1,\"isRaceLocked\": 0,\"randomizeTrackWhenEmpty\": 0,\"centralEntryListPath\": \"\",\"allowAutoDQ\": ".$helper1.",\"shortFormationLap\": ".$helper2.",\"dumpEntryList\": 0,\"formationLapType\": ".$formdata['formationLapType']."}";
-            if (file_exists($filepath)) unlink($filepath);
-            file_put_contents($filepath, $configstring);
+            $this->dumpJSON($filepath, $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "settings.json has been generated"
             ]);
@@ -88,8 +86,7 @@ class ServerConfigController extends AbstractController
             if ($formdata['isRefuellingTimeFixed']) $helper = "true";
             else $helper = "false";
             $configstring = "{\"qualifyStandingType\": ".$formdata['qualifyStandingType'].", \"isRefuellingTimeFixed\": ".$helper."}";
-            if (file_exists($filepath)) unlink($filepath);
-            file_put_contents($filepath, $configstring);
+            $this->dumpJSON($filepath, $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "entryList.json has been generated"
             ]);
@@ -97,5 +94,15 @@ class ServerConfigController extends AbstractController
         return $this->render('server_config/entryrules.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * This function checks if a file exists, to delete it, and create a new one according to what we're sending it.
+     * @param string $filepath Path and name of the file to create
+     * @param string $json JSON to print to the file
+     */
+    private function dumpJSON(string $filepath, string $json): void {
+        if (file_exists($filepath)) unlink($filepath);
+        file_put_contents($filepath, json_encode(json_decode($json), JSON_PRETTY_PRINT));
     }
 }

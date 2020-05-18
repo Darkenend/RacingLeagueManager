@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | Server Configuration{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Server Configuration Panel</h1>
+    {% if message != "" %}
+        <h3>Info:</h3>
+        <code>
+            {{ message }}
+        </code>
+        <hr>
+    {% endif %}
+    Here you can configure your server settings:
+    <ul>
+        <li>
+            <a href="{{ path('serverconfig_configuration') }}">
+                Generate 'configuration.json'
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('serverconfig_settings') }}">
+                Generate 'settings.json'
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('serverconfig_eventrules') }}">
+                Generate 'eventRules.json'
+            </a>
+        </li>
+    </ul>
+    <hr>
+    <a href="{{ path('admin_home') }}">
+        Back to the Admin Panel
+    </a>
+</div>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\AssistsType;
 use App\Form\ConfigurationType;
 use App\Form\EventRulesType;
 use App\Form\SettingsType;
@@ -36,9 +37,8 @@ class ServerConfigController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formdata = $form->getData();
-            $filepath = $_SERVER['APP_FOLDER']."\cfg\\configuration.json";
             $configstring = "{\"udpPort\": ".$formdata['port'].",\"tcpPort\": ".$formdata['port'].",\"maxConnections\": ".$formdata['maxConnections'].",\"lanDiscovery\": 0,\"registerToLobby\": 0,\"configVersion\": 1}";
-            $this->dumpJSON($filepath, $configstring);
+            $this->dumpJSON($_SERVER['APP_FOLDER']."\cfg\\configuration.json", $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "configuration.json has been generated"
             ]);
@@ -57,13 +57,12 @@ class ServerConfigController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formdata = $form->getData();
-            $filepath = $_SERVER['APP_FOLDER']."\cfg\\settings.json";
             if ($formdata['allowAutoDQ']) $helper1 = 1;
             else $helper1 = 0;
             if ($formdata['shortFormationLap']) $helper2 = 1;
             else $helper2 = 0;
             $configstring = "{\"serverName\": \"".$formdata['serverName']."\",\"adminPassword\": \"".$formdata['adminPassword']."\",\"trackMedalsRequirement\": 3,\"safetyRatingRequirement\": 50, \"racecraftRatingRequirement\": -1,\"maxCarSlots\": ".$formdata['maxCarSlots'].",\"dumpLeaderboards\": 1,\"isRaceLocked\": 0,\"randomizeTrackWhenEmpty\": 0,\"centralEntryListPath\": \"\",\"allowAutoDQ\": ".$helper1.",\"shortFormationLap\": ".$helper2.",\"dumpEntryList\": 0,\"formationLapType\": ".$formdata['formationLapType']."}";
-            $this->dumpJSON($filepath, $configstring);
+            $this->dumpJSON($_SERVER['APP_FOLDER']."\cfg\\settings.json", $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "settings.json has been generated"
             ]);
@@ -82,16 +81,34 @@ class ServerConfigController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formdata = $form->getData();
-            $filepath = $_SERVER['APP_FOLDER']."\cfg\\eventRules.json";
             if ($formdata['isRefuellingTimeFixed']) $helper = "true";
             else $helper = "false";
             $configstring = "{\"qualifyStandingType\": ".$formdata['qualifyStandingType'].", \"isRefuellingTimeFixed\": ".$helper."}";
-            $this->dumpJSON($filepath, $configstring);
+            $this->dumpJSON($_SERVER['APP_FOLDER']."\cfg\\eventRules.json", $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "entryList.json has been generated"
             ]);
         }
         return $this->render('server_config/entryrules.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/assistrules", name="_assists")
+     */
+    public function assistRules(Request $request): Response {
+        $form = $this->createForm(AssistsType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formdata = $form->getData();
+            $configstring = "{\"stabilityControlLevelMax\": ".$formdata['stabilityControlLevelMax'].",\"disableAutosteer\": ".$formdata['disableAutosteer'].",\"disableAutoLights\": ".$formdata['disableAutoLights'].",\"disableAutoWiper\": ".$formdata['disableAutoWiper'].",\"disableAutoEngineStart\": ".$formdata['disableAutoEngineStart'].",\"disableAutoPitLimiter\": ".$formdata['disableAutoPitLimiter'].",\"disableAutoGear\": ".$formdata['disableAutoGear'].",\"disableAutoClutch\": ".$formdata['disableAutoClutch'].",\"disableIdealLine\": ".$formdata['disableIdealLine']."}";
+            $this->dumpJSON($_SERVER['APP_FOLDER']."\cfg\\assistRules.json", $configstring);
+            return $this->render('server_config/index.html.twig', [
+                'message' => "assistRules.json has been generated"
+            ]);
+        }
+        return $this->render('server_config/assistrules.html.twig', [
             'form' => $form->createView()
         ]);
     }

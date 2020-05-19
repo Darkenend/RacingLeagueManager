@@ -48,6 +48,11 @@ class TeamEntryList
      */
     private $bestlap;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Laps;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +127,18 @@ class TeamEntryList
     public function setBestlap(?int $bestlap): self
     {
         $this->bestlap = $bestlap;
+
+        return $this;
+    }
+
+    public function getLaps(): ?int
+    {
+        return $this->Laps;
+    }
+
+    public function setLaps(?int $Laps): self
+    {
+        $this->Laps = $Laps;
 
         return $this;
     }

@@ -185,6 +185,7 @@ class AppFixtures extends Fixture
         $entrylist_1_1->setResult(10808926);
         $entrylist_1_1->setBestlap(119904);
         $entrylist_1_1->setCarmodel(19);
+        $entrylist_1_1->setLaps(77);
         $entrylist_1_2 = new TeamEntryList();
         $entrylist_1_2->setTeamId($team_2);
         $entrylist_1_2->setRacenumber(273);
@@ -192,6 +193,7 @@ class AppFixtures extends Fixture
         $entrylist_1_2->setResult(10823778);
         $entrylist_1_2->setBestlap(120449);
         $entrylist_1_2->setCarmodel(23);
+        $entrylist_1_2->setLaps(77);
         $entrylist_1_3 = new TeamEntryList();
         $entrylist_1_3->setTeamId($team_3);
         $entrylist_1_3->setRacenumber(1);
@@ -199,6 +201,7 @@ class AppFixtures extends Fixture
         $entrylist_1_3->setResult(10826199);
         $entrylist_1_3->setBestlap(120235);
         $entrylist_1_3->setCarmodel(6);
+        $entrylist_1_3->setLaps(77);
             // Race 2
         $entrylist_2_1 = new TeamEntryList();
         $entrylist_2_1->setTeamId($team_1);
@@ -207,6 +210,7 @@ class AppFixtures extends Fixture
         $entrylist_2_1->setResult(36110048);
         $entrylist_2_1->setBestlap(122765);
         $entrylist_2_1->setCarmodel(19);
+        $entrylist_2_1->setLaps(275);
         $entrylist_2_2 = new TeamEntryList();
         $entrylist_2_2->setTeamId($team_2);
         $entrylist_2_2->setRacenumber(273);
@@ -214,6 +218,7 @@ class AppFixtures extends Fixture
         $entrylist_2_2->setResult(36151415);
         $entrylist_2_2->setBestlap(123429);
         $entrylist_2_2->setCarmodel(23);
+        $entrylist_2_2->setLaps(275);
         $entrylist_2_3 = new TeamEntryList();
         $entrylist_2_3->setTeamId($team_3);
         $entrylist_2_3->setRacenumber(1);
@@ -221,6 +226,7 @@ class AppFixtures extends Fixture
         $entrylist_2_3->setResult(36154845);
         $entrylist_2_3->setBestlap(123406);
         $entrylist_2_3->setCarmodel(6);
+        $entrylist_2_3->setLaps(275);
             // Race 3
         $entrylist_3_1 = new TeamEntryList();
         $entrylist_3_1->setTeamId($team_1);
@@ -229,6 +235,7 @@ class AppFixtures extends Fixture
         $entrylist_3_1->setResult(28871484);
         $entrylist_3_1->setBestlap(84632);
         $entrylist_3_1->setCarmodel(19);
+        $entrylist_3_1->setLaps(327);
         $entrylist_3_2 = new TeamEntryList();
         $entrylist_3_2->setTeamId($team_2);
         $entrylist_3_2->setRacenumber(273);
@@ -236,6 +243,7 @@ class AppFixtures extends Fixture
         $entrylist_3_2->setResult(28883339);
         $entrylist_3_2->setBestlap(84857);
         $entrylist_3_2->setCarmodel(23);
+        $entrylist_3_2->setLaps(327);
         $entrylist_3_3 = new TeamEntryList();
         $entrylist_3_3->setTeamId($team_3);
         $entrylist_3_3->setRacenumber(1);
@@ -243,6 +251,7 @@ class AppFixtures extends Fixture
         $entrylist_3_3->setResult(28892252);
         $entrylist_3_3->setBestlap(85170);
         $entrylist_3_3->setCarmodel(6);
+        $entrylist_3_3->setLaps(327);
             // Race 5
         $entrylist_5_1 = new TeamEntryList();
         $entrylist_5_1->setTeamId($team_4);

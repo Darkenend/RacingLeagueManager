@@ -268,4 +268,19 @@ class Race
 
         return $this;
     }
+
+    /**
+     * This function obtains a formatted name to easily identify a race, with the following format:
+     * Race Track - Championship Name
+     * @return string String formatted to easily identify which Race it is.
+     */
+    public function getRaceinfo(): string
+    {
+        $string = "";
+        $string = $string.$this->getTrack();
+        $string = $string.' - '.$this->getChampionshipId()->getName();
+        $string = str_replace('_2019', '', $string);
+        $string = str_replace('_', ' ', $string);
+        return ucwords($string);
+    }
 }

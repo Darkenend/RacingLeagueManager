@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | Result Processing | Race{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        {% if message != "" %}
+            {{ dump(message) }}
+        {% endif %}
+        <h1>
+            Race for Result Processing
+        </h1>
+        {% if form is defined %}
+            {{ form(form) }}
+        {% endif %}
+        <hr>
+        <a href="{{ path('admin_home') }}">
+            Go to Admin Panel
+        </a>
+    </div>
+{% endblock %}

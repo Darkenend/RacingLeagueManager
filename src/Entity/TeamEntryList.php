@@ -31,22 +31,22 @@ class TeamEntryList
     /**
      * @ORM\Column(type="integer")
      */
-    private $result;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $bestlap;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $racenumber;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $carmodel;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $result;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $bestlap;
 
     public function getId(): ?int
     {
@@ -82,24 +82,6 @@ class TeamEntryList
         return $this->result;
     }
 
-    public function setResult(int $result): self
-    {
-        $this->result = $result;
-
-        return $this;
-    }
-
-    public function getBestlap(): ?int
-    {
-        return $this->bestlap;
-    }
-
-    public function setBestlap(int $bestlap): self
-    {
-        $this->bestlap = $bestlap;
-
-        return $this;
-    }
 
     public function getRacenumber(): ?int
     {
@@ -121,6 +103,25 @@ class TeamEntryList
     public function setCarmodel(int $carmodel): self
     {
         $this->carmodel = $carmodel;
+
+        return $this;
+    }
+
+    public function setResult(?int $result): self
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    public function getBestlap(): ?int
+    {
+        return $this->bestlap;
+    }
+
+    public function setBestlap(?int $bestlap): self
+    {
+        $this->bestlap = $bestlap;
 
         return $this;
     }

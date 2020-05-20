@@ -22,7 +22,7 @@
         {% for race in races %}
             <tr>
                 <td>
-                    {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | capitalize }}
+                    {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}
                 </td>
                 <td>
                     {{ race.practiceLength }} minutes

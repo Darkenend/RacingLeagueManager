@@ -4,10 +4,8 @@
     <h1>
         Race Info
     </h1>
-    <h2> Track: {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | capitalize }}</h2>
+    <h2> Track: {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}</h2>
     <h2> Length: {{ race.raceLength }} Minutes</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor explicabo optio quas qui rerum. Ab assumenda delectus doloremque error exercitationem harum illo labore magnam nihil nisi, nostrum saepe vel vero.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis eveniet explicabo inventore labore quasi saepe tempora? Ad architecto aspernatur, eius exercitationem modi nemo, nisi odio quos similique suscipit temporibus.</p>
     {% if entrylist | length != 0 %}
         <table>
             <thead>

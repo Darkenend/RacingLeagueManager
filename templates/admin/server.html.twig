@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Server Launch{% endblock %}
+{% block body %}
+    <h1>
+        Server Launched
+    </h1>
+    <hr>
+    <p>
+        {{ message }}
+    </p>
+    <hr>
+    <a class="btn btn-info" href="{{ path('resultprocessing_insert', {'id': race.id}) }}">
+        Get Race Results
+    </a>
+{% endblock %}

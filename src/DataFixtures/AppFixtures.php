@@ -131,6 +131,7 @@ class AppFixtures extends Fixture
         $race_1->setRaceHour(15);
         $race_1->setRaceLength(180);
         $race_1->setGreenflagtime(DateTime::createFromFormat('U', '1555246800'));
+        $race_1->setComplete(true);
         $race_2->setTrack("suzuka_2019");
         $race_2->setAmbientTemp(24);
         $race_2->setCloudLevel(0.6);
@@ -142,6 +143,7 @@ class AppFixtures extends Fixture
         $race_2->setRaceHour(10);
         $race_2->setRaceLength(60*10);
         $race_2->setGreenflagtime(DateTime::createFromFormat('U', '1566694800'));
+        $race_2->setComplete(true);
         $race_3->setTrack("laguna_seca_2019");
         $race_3->setAmbientTemp(21);
         $race_3->setCloudLevel(0.3);
@@ -153,6 +155,7 @@ class AppFixtures extends Fixture
         $race_3->setRaceHour(8);
         $race_3->setRaceLength(60*8);
         $race_3->setGreenflagtime(DateTime::createFromFormat('U', '1553934600'));
+        $race_3->setComplete(true);
         $race_4->setTrack("nurburgring_2019");
         $race_4->setAmbientTemp(20);
         $race_4->setCloudLevel(0.3);
@@ -164,6 +167,7 @@ class AppFixtures extends Fixture
         $race_4->setRaceHour(14);
         $race_4->setRaceLength(180);
         $race_4->setGreenflagtime(DateTime::createFromFormat('U', '1567341000'));
+        $race_4->setComplete(false);
         $race_5->setTrack("mount_panorama_2019");
         $race_5->setAmbientTemp(20);
         $race_5->setCloudLevel(0.1);
@@ -175,6 +179,7 @@ class AppFixtures extends Fixture
         $race_5->setRaceHour(14);
         $race_5->setRaceLength(5);
         $race_5->setGreenflagtime(DateTime::createFromFormat('U', '1589902800'));
+        $race_5->setComplete(false);
 
         // Entrylists
             // Race 1

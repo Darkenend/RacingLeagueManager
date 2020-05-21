@@ -84,6 +84,11 @@ class Race
      */
     private $greenflagtime;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $complete;
+
     public function __construct()
     {
         $this->teamEntryLists = new ArrayCollection();
@@ -282,5 +287,17 @@ class Race
         $string = str_replace('_2019', '', $string);
         $string = str_replace('_', ' ', $string);
         return ucwords($string);
+    }
+
+    public function getComplete(): ?bool
+    {
+        return $this->complete;
+    }
+
+    public function setComplete(bool $complete): self
+    {
+        $this->complete = $complete;
+
+        return $this;
     }
 }

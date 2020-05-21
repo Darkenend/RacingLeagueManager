@@ -54,6 +54,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(RaceType::class, $race);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $race->setComplete(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($race);
             $entityManager->flush();

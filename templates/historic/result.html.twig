@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title %}RLM | Race Results {% endblock %}
+{% set racename = "" %}
+{% for result in results %}
+    {% set racename = result.raceid.raceinfo %}
+{% endfor %}
 {% block body %}
+    <h3>
+        {{ racename }}
+    </h3>
     <table class="table table-striped table-borderless">
         <thead class="thead-dark">
         <tr>

@@ -4,14 +4,14 @@
 
 {% block body %}
     <div class="example-wrapper">
-        {% if message != "" %}
-            {{ dump(message) }}
-        {% endif %}
         <h1>
             Race for Result Processing
         </h1>
         {% if form is defined %}
             {{ form(form) }}
+        {% endif %}
+        {% if message != "" %}
+            {{ message }}
         {% endif %}
         <hr>
         <a href="{{ path('admin_home') }}">

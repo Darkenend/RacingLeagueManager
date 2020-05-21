@@ -98,6 +98,7 @@ class ResultProcessingController extends AbstractController
             }
             $this->getDoctrine()->getRepository(Race::class)->find($id)->setComplete(true);
             $this->getDoctrine()->getManager()->flush();
+            unlink($filepath);
         }
         return $this->render("historic/result.html.twig", array('results'=>$race));
     }

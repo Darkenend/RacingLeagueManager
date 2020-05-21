@@ -20,6 +20,7 @@
         </thead>
         <tbody>
         {% for race in races %}
+            {% if race.complete != true %}
             <tr>
                 <td>
                     {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}
@@ -39,6 +40,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

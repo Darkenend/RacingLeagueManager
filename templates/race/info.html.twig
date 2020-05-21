@@ -33,6 +33,10 @@
         </table>
         <hr>
     {% endif %}
+    <a href="{{ path('race_launch', {'id': race.id}) }}">
+        Launch Server - Security Risk (Only runs on Dev environments)
+    </a>
+    <br>
     <a href="{{ path('race_entrylist', {'id': race.id }) }}">
         Generate JSON of Entrylist
     </a>

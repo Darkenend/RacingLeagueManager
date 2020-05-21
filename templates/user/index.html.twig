@@ -6,13 +6,24 @@
     <h1>Welcome to Racing League Manager!</h1>
     You're currently in the user panel, {{ app.user.name }} {{ app.user.lastname }}:
     <ul>
-        <li>See Championships</li>
+        <li>
+            Championships
+        </li>
         <li>
             <a href="{{ path('user_teams') }}">
-                See Teams
+                Teams
             </a>
         </li>
-        <li><a href="{{ path('historic_championships') }}">See Past Championships and Races Results</a></li>
+        <li>
+            <a href="{{ path('historic_championships') }}">
+                Past Championships and Races Results
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('message_home') }}">
+                Message Board
+            </a>
+        </li>
     </ul>
     <hr>
     {% if is_granted('ROLE_ADMIN') %}

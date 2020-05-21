@@ -29,6 +29,11 @@ class Conversation
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $topic;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -78,6 +83,18 @@ class Conversation
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTopic(): ?string
+    {
+        return $this->topic;
+    }
+
+    public function setTopic(string $topic): self
+    {
+        $this->topic = $topic;
 
         return $this;
     }

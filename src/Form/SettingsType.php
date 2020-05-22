@@ -27,11 +27,11 @@ class SettingsType extends AbstractType
                 'label' => 'Max Car Slots: '
             ])
             ->add('allowAutoDQ', CheckboxType::class, [
-                'label' => 'Allow Automatic Disqualifications: ',
+                'label' => 'Allow Automatic Disqualifications',
                 'required' => false
             ])
             ->add('shortFormationLap', CheckboxType::class, [
-                'label' => 'Short Formation Lap: ',
+                'label' => 'Short Formation Lap',
                 'required' => false
             ])
             ->add('formationLapType', ChoiceType::class, [

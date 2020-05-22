@@ -19,10 +19,10 @@ class EventRulesType extends AbstractType
                     'Average Lap' => '2',
                     'Fastest Lap' => '1'
                 ],
-                'label' => "Qualifying Type: "
+                'label' => "Qualifying Type"
             ])
             ->add('isRefuellingTimeFixed', CheckboxType::class, [
-                'label' => 'Fixed Refuelling Time: ',
+                'label' => 'Fixed Refuelling Time',
                 'required' => false
             ])
             ->add('submit', SubmitType::class)

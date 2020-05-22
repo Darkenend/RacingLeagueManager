@@ -5,11 +5,25 @@
 {% endfor %}
 {% block title %}RLM | {{ championship }}{% endblock %}
 {% block body %}
-    <h1>
-        {{ championship }}
-    </h1>
-    <table class="table table-striped table-borderless">
-        <thead class="thead-dark">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('historic_championships') }}">
+                    Historic
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ championship }}
+            </li>
+        </ol>
+    </nav>
+    <table class="table table-striped table-borderless table-dark">
+        <thead class="thead-light">
         <tr>
             <th>Circuit</th>
             <th>Free Practice Length</th>
@@ -42,5 +56,4 @@
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('historic_championships') }}">Go Back to Championships</a>
 {% endblock %}

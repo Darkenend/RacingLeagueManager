@@ -15,7 +15,7 @@ class CreateChampionshipType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'attr' => ['placeholder' => 'Team Name']
+                'attr' => ['placeholder' => 'Championship Name']
             ])
             ->add('save', SubmitType::class)
         ;

@@ -1,45 +1,51 @@
 {% extends 'base.html.twig' %}
 {% block title %}RLM | Race Info{% endblock %}
 {% block body %}
-    <h1>
-        Race Info
-    </h1>
-    <h2> Track: {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}</h2>
-    <h2> Length: {{ race.raceLength }} Minutes</h2>
-    {% if entrylist | length != 0 %}
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Team Name
-                    </th>
-                    <th>
-                        Race #
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('race_champ', {'id': race.championshipId.id}) }}">
+                    {{ race.championshipId.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}
+            </li>
+        </ol>
+    </nav>
+    <div class="card text-dark">
+        <img src="{{ asset(['img/tracks/', race.track | replace({'_2019': ""}), '.png'] | join) }}"
+             class="card-img-top" alt="{{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}"
+             style="max-width: 50%; display: block; margin:auto">
+        <div class="card-body">
+            <h5 class="card-title">{{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}</h5>
+            <p class="card-text">Length: {{ race.raceLength }} Minutes</p>
+        </div>
+        {% if entrylist | length != 0 %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Entrylist: Team Name | Race #</li>
                 {% for entry in entrylist %}
-                    <tr>
-                        <td>
-                            {{ entry.teamId.name }}
-                        </td>
-                        <td>
-                            {{ entry.racenumber }}
-                        </td>
-                    </tr>
+                    <li class="list-group-item">{{ entry.teamId.name }} | {{ entry.racenumber }}</li>
                 {% endfor %}
-            </tbody>
-        </table>
-        <hr>
-    {% endif %}
-    <a href="{{ path('race_launch', {'id': race.id}) }}">
-        Launch Server - Security Risk (Only runs on Dev environments)
-    </a>
-    <br>
-    <a href="{{ path('race_entrylist', {'id': race.id }) }}">
-        Generate JSON of Entrylist
-    </a>
-    <hr>
-    <a href="{{ path('race_dashboard') }}">Go Back to Championships</a>
+            </ul>
+        {% endif %}
+        <div class="card-body">
+            <a href="{{ path('race_launch', {'id': race.id}) }}">
+                Launch Server - Security Risk (Only runs on Dev environments)
+            </a>
+            <a href="{{ path('race_entrylist', {'id': race.id }) }}">
+                Generate JSON of Entrylist
+            </a>
+        </div>
+    </div>
 {% endblock %}

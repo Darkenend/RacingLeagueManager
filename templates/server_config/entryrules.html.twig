@@ -1,12 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RLM | entryRules.json{% endblock %}
+{% block title %}RLM | eventRules.json{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
-        <h1>entryRules.json</h1>
-        {{ form(form) }}
-        <hr>
-        <a href="{{ path('serverconfig_index') }}">Back to the Server Configuration Panel</a>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('serverconfig_index') }}">
+                    Server Configuration
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                eventRules.json
+            </li>
+        </ol>
+    </nav>
+    {{ form_start(form) }}
+    <div class="row text-center">
+        <div class="col-4 offset-1">
+            {{ form_row(form.qualifyStandingType) }}
+        </div>
+        <div class="col-2 offset-1">
+            {{ form_row(form.isRefuellingTimeFixed) }}
+        </div>
+        <div class="col align-middle">
+            {{ form_row(form.submit) }}
+        </div>
     </div>
+    {{ form_end(form) }}
 {% endblock %}

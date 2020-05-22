@@ -2,11 +2,22 @@
 {% block title %}RLM | Championship Sign Up{% endblock %}
 
 {% block body %}
-    <h1>
-        Championship Sign Up
-    </h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_teams') }}">
+                    Teams
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Register in Championship
+            </li>
+        </ol>
+    </nav>
     {{ form(form) }}
-    <hr>
-    <a href="{{ path('user_teams') }}">Go back to your teams</a>
-    <a href="{{ path('user_home') }}">Go back to your home</a>
 {% endblock %}

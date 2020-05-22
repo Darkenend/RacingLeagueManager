@@ -5,16 +5,33 @@
     {% set racename = result.raceid.raceinfo %}
 {% endfor %}
 {% block body %}
-    <h3>
-        {{ racename }}
-    </h3>
-    <table class="table table-striped table-borderless">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('historic_championships') }}">
+                    Historic
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ racename }}
+            </li>
+        </ol>
+    </nav>
+    <table class="table table-striped table-borderless table-dark">
         <thead class="thead-dark">
         <tr>
             <th>#</th>
+            <th>Team Name</th>
+            <th>Drivers</th>
             <th>Car</th>
             <th>Fastest Lap</th>
             <th>Race Length</th>
+            <th>Laps</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +39,20 @@
             <tr>
                 <td>
                     {{ result.racenumber }}
+                </td>
+                <td>
+                    {{ result.teamid.name }}
+                </td>
+                <td>
+                    {% set driverstring = "" %}
+                    {% for driver in result.teamid.teamDrivers %}
+                        {% if driverstring == "" %}
+                            {% set driverstring = driver.driver.__toString %}
+                        {% else %}
+                            {% set driverstring = [driverstring, ' / ' , driver.driver.__toString] | join %}
+                        {% endif %}
+                    {% endfor %}
+                    {{ driverstring }}
                 </td>
                 <td>
                     {{ result.carmodel | replace({"0": "Porsche 991 GT3", "1": "Mercedes AMG GT3", "2": "Ferrari 488 GT3",
@@ -83,6 +114,9 @@
                         {% set seconds = '0' ~ seconds %}
                     {% endif %}
                     {% if hours != null %}{{ hours }}{% endif %}{{ minutes }}{{ seconds }}.{{ ms }}
+                </td>
+                <td>
+                    {{ result.laps }}
                 </td>
             </tr>
         {% endfor %}

@@ -3,29 +3,28 @@
 {% block title %}RLM | User Panel{% endblock %}
 
 {% block body %}
-    <h1>Welcome to Racing League Manager!</h1>
-    You're currently in the user panel, {{ app.user.name }} {{ app.user.lastname }}:
-    <ul>
-        <li>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item active" aria-current="page">
+                Home
+            </li>
+        </ol>
+    </nav>
+    <ul class="list-group">
+        <li class="list-group-item">
             <a href="{{ path('user_teams') }}">
                 Teams
             </a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="{{ path('historic_championships') }}">
                 Past Championships and Races Results
             </a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="{{ path('message_home') }}">
                 Message Board
             </a>
         </li>
     </ul>
-    <hr>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('admin_home') }}">Go to the Admin Panel</a>
-    {% endif %}
-    <br>
-    <a href="{{ path('app_logout') }}">Log out of your account</a>
 {% endblock %}

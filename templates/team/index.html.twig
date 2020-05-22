@@ -2,15 +2,29 @@
 {% block title %}RLM | {{ team.name }}{% endblock %}
 
 {% block body %}
-    <h1>
-        {{ team.name }}
-    </h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_teams') }}">
+                    Teams
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ team.name }}
+            </li>
+        </ol>
+    </nav>
     {% if message is defined %}
         <p>
             {{ message }}
         </p>
     {% endif %}
-    <table class="table table-striped table-borderless">
+    <table class="table table-striped table-borderless table-dark">
         <thead class="thead-dark">
         <tr>
             <th>Driver</th>
@@ -28,47 +42,45 @@
                         {{ driver.rank | replace({"0": "To Be Accepted", "1": "Member", "2": "Admin"}) }}
                     </td>
                     <td>
-                        {% for check in teamDrivers %}
-                            {% if check.driver.id == app.user.id and check.rank == 2 %}
-                                {% if driver.rank != 2 %}
-                                    <button>
-                                        <a href="{{ path('team_up', {'driverid': driver.driver.id, 'teamid': team.id }) }}">
-                                            {% if driver.rank == 1 %}
-                                                Rank Up
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            {% for check in teamDrivers %}
+                                {% if check.driver.id == app.user.id and check.rank == 2 %}
+                                    {% if driver.rank != 2 %}
+                                        <button class="btn btn-secondary" type="button">
+                                            <a href="{{ path('team_up', {'driverid': driver.driver.id, 'teamid': team.id }) }}">
+                                                {% if driver.rank == 1 %}
+                                                    Rank Up
+                                                {% else %}
+                                                    Accept Membership
+                                                {% endif %}
+                                            </a>
+                                        </button>
+                                        <button class="btn btn-secondary" type="button">
+                                            {% if driver.rank != 0 %}
+                                                <a href="{{ path('team_down', {'driverid': driver.driver.id, 'teamid': team.id}) }}">
+                                                    Rank Down
+                                                </a>
                                             {% else %}
-                                                Accept Membership
+                                                <a href="{{ path('team_reject', {'driverid': driver.driver.id, 'teamid': team.id}) }}">
+                                                    Reject Membership
+                                                </a>
                                             {% endif %}
-                                        </a>
-                                    </button>
-                                    <button>
-                                        {% if driver.rank != 0 %}
-                                            <a href="{{ path('team_down', {'driverid': driver.driver.id, 'teamid': team.id}) }}">
-                                                Rank Down
-                                            </a>
-                                        {% else %}
-                                            <a href="{{ path('team_reject', {'driverid': driver.driver.id, 'teamid': team.id}) }}">
-                                                Reject Membership
-                                            </a>
-                                        {% endif %}
-                                    </button>
+                                        </button>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
     <hr>
-    <a href="{{ path('team_signup', {'teamid': team.id}) }}">
-        Register Team in Championship
-    </a>
-    <hr>
-    <a href="{{ path('user_teams') }}">
-        Go back to your teams
-    </a>
-    <br>
-    <a href="{{ path('user_home') }}">
-        Go back to your home
-    </a>
+    <div class="row text-center">
+        <div class="col">
+            <a href="{{ path('team_signup', {'teamid': team.id}) }}">
+                Register Team in Championship
+            </a>
+        </div>
+    </div>
 {% endblock %}

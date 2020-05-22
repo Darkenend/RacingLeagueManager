@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="display-1">
+        Error 404: "You went off track"
+    </h1>
+    <p>
+        The requested page couldn't be located. Check for any URL misspelling or <a href="{{ path('user_home') }}">go back</a> to the dashboard.
+    </p>
+{% endblock %}

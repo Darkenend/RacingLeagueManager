@@ -3,15 +3,16 @@
 {% block title %}RLM | Message Board{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    <h1>
-        Message Board | {{ app.user.name }} {{ app.user.lastname }}
-    </h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item"><a href="{{ path('user_home') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Message Board</li>
+        </ol>
+    </nav>
     {% if conversations|length != 0 %}
-        <hr>
-        <ul>
+        <ul class="list-group">
             {% for conversation in conversations %}
-                <li>
+                <li class="list-group-item">
                     <a href="{{ path('message_conversation', {'id': conversation.id}) }}">
                         {{ conversation.topic }}
                     </a>
@@ -19,9 +20,4 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <hr>
-    <a href="{{ path('user_home') }}">
-        Back to User Panel
-    </a>
-</div>
 {% endblock %}

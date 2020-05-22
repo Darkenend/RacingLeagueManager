@@ -25,6 +25,7 @@ class TeamEntryListRepository extends ServiceEntityRepository
             ->andWhere('t.race_id = :val')
             ->setParameter('val', $value)
             ->orderBy('t.result', 'ASC')
+            ->addOrderBy('t.Laps', 'DESC')
             ->getQuery()
             ->getResult();
     }

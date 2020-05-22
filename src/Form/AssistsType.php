@@ -19,39 +19,39 @@ class AssistsType extends AbstractType
                     'min' => '0',
                     'max' => '100'
                 ],
-                'label' => 'Stability Control %: '
+                'label' => 'Stability Control %'
             ])
             ->add('disableAutosteer', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Autosteer: '
+                'label' => 'Autosteer'
             ])
             ->add('disableAutoLights', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Auto Lights: '
+                'label' => 'Auto Lights'
             ])
             ->add('disableAutoWiper', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Auto Wiper: '
+                'label' => 'Auto Wiper'
             ])
             ->add('disableAutoEngineStart', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Auto Engine Start: '
+                'label' => 'Auto Engine Start'
             ])
             ->add('disableAutoPitLimiter', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Auto Pit Limiter: '
+                'label' => 'Auto Pit Limiter'
             ])
             ->add('disableAutoGear', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Auto Gear Shifts: '
+                'label' => 'Auto Gear Shifts'
             ])
             ->add('disableAutoClutch', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Auto Clutch: '
+                'label' => 'Auto Clutch'
             ])
             ->add('disableIdealLine', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Ideal Driving Line: '
+                'label' => 'Ideal Driving Line'
             ])
             ->add('submit', SubmitType::class)
         ;

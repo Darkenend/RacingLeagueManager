@@ -9,10 +9,22 @@
 {% endfor %}
 {% block title %}RLM | Your Teams{% endblock %}
 {% block body %}
-    <ul>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Teams
+            </li>
+        </ol>
+    </nav>
+    <ul class="list-group">
         {% for team in teams %}
             {% if team.rank != 0 %}
-                <li>
+                <li class="list-group-item">
                     <a href="{{ path('team_profile', {'id': team.team.id }) }}">
                         {{ team.team.name }}
                     </a>
@@ -33,10 +45,10 @@
     <h3>
         Teams Open to Apply
     </h3>
-    <ul>
+    <ul class="list-group">
         {% for team in allteams %}
             {% if team.id not in repeatedIds and team.privacy == 0 %}
-                <li>
+                <li class="list-group-item">
                     <a href="{{ path('team_invite', {'driverid': app.user.id, 'teamid': team.id}) }}">
                         {{ team.name }}
                     </a>
@@ -44,6 +56,4 @@
             {% endif %}
         {% endfor %}
     </ul>
-    <hr>
-    <a href="{{ path('user_home') }}">Back to the User Panel</a>
 {% endblock %}

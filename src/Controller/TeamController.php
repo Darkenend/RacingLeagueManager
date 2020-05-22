@@ -7,7 +7,6 @@ use App\Entity\Team;
 use App\Entity\TeamDrivers;
 use App\Entity\User;
 use App\Form\ChampionshipSignupType;
-use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -110,17 +109,16 @@ class TeamController extends AbstractController
             'team' => $teamid,
             'driver' => $this->getUser()
         ])->getRank();
-        $logger->debug('Current User Rank: ', ['currentUserRank' => $currentUserRank]);
-        if ($currentUserRank == 2) $result = 1;
-        else $result = 0;
-        $logger->debug('User Admin: ', [
-            'isUserAdmin' => $currentUserRank==2
-        ]);
         $team = $this->getDoctrine()->getRepository(Team::class)->find($teamid);
         $teamdrivers = $this->getDoctrine()->getRepository(TeamDrivers::class)->findBy(['team' => $team]);
-        $championshipsignup = new ChampionshipEntries();
-        $form = $this->createForm(ChampionshipSignupType::class, $championshipsignup, ['customdata' => $teamid]);
-        $form->handleRequest($request);
+        $form = null;
+        if ($currentUserRank == 2) {
+            $result = 1;
+            $championshipsignup = new ChampionshipEntries();
+            $form = $this->createForm(ChampionshipSignupType::class, $championshipsignup, ['customdata' => $teamid]);
+            $form->handleRequest($request);
+        }
+        else $result = 0;
         if ($form->isSubmitted() && $form->isValid()) {
             $logger->debug('Form Submitted & Valid');
             if (is_null($this->getDoctrine()->getRepository(ChampionshipEntries::class)->findBy(['team'=>$team, 'championship' => $championshipsignup->getChampionship()]))) $result = 3;

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | settings.json{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('serverconfig_index') }}">
+                    Server Configuration
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                settings.json
+            </li>
+        </ol>
+    </nav>
+    {{ form_start(form) }}
+    <div class="row text-center">
+        <div class="col col-md-6">
+            {{ form_row(form.serverName) }}
+        </div>
+        <div class="col col-md-6">
+            {{ form_row(form.adminPassword) }}
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col col-md-6">
+            {{ form_row(form.maxCarSlots) }}
+        </div>
+        <div class="col col-md-6">
+            {{ form_row(form.formationLapType) }}
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col col-md-6">
+            {{ form_row(form.allowAutoDQ) }}
+        </div>
+        <div class="col col-md-6">
+            {{ form_row(form.shortFormationLap) }}
+        </div>
+    </div>
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

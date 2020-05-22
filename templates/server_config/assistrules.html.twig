@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | assistRules.json{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('serverconfig_index') }}">
+                    Server Configuration
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                assistRules.json
+            </li>
+        </ol>
+    </nav>
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.stabilityControlLevelMax) }}
+        </div>
+        <div class="form-check form-check-inline">
+            {{ form_row(form.disableAutoClutch) }}
+            {{ form_row(form.disableAutoEngineStart) }}
+            {{ form_row(form.disableAutoGear) }}
+            {{ form_row(form.disableAutoLights) }}
+            {{ form_row(form.disableAutoPitLimiter) }}
+            {{ form_row(form.disableAutosteer) }}
+            {{ form_row(form.disableAutoWiper) }}
+            {{ form_row(form.disableIdealLine) }}
+        </div>
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

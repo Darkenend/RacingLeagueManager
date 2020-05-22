@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | Server Configuration{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Server Configuration
+            </li>
+        </ol>
+    </nav>
+    {% if message != "" %}
+        <h3>Info:</h3>
+        <code>
+            {{ message }}
+        </code>
+        <hr>
+    {% endif %}
+    <div class="row">
+        <div class="col">
+            <p class="p">
+                Here you can configure your server files
+            </p>
+        </div>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{{ path('serverconfig_assists') }}">
+                Generate 'assistRules.json'
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="{{ path('serverconfig_configuration') }}">
+                Generate 'configuration.json'
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="{{ path('serverconfig_eventrules') }}">
+                Generate 'eventRules.json'
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="{{ path('serverconfig_settings') }}">
+                Generate 'settings.json'
+            </a>
+        </li>
+    </ul>
+{% endblock %}

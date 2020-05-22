@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Race Info{% endblock %}
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('race_champ', {'id': race.championshipId.id}) }}">
+                    {{ race.championshipId.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}
+            </li>
+        </ol>
+    </nav>
+    <div class="card text-dark">
+        <img src="{{ asset(['img/tracks/', race.track | replace({'_2019': ""}), '.png'] | join) }}"
+             class="card-img-top" alt="{{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}"
+             style="max-width: 50%; display: block; margin:auto">
+        <div class="card-body">
+            <h5 class="card-title">{{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}</h5>
+            <p class="card-text">Length: {{ race.raceLength }} Minutes</p>
+        </div>
+        {% if entrylist | length != 0 %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Entrylist: Team Name | Race #</li>
+                {% for entry in entrylist %}
+                    <li class="list-group-item">{{ entry.teamId.name }} | {{ entry.racenumber }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="card-body">
+            <a href="{{ path('race_launch', {'id': race.id}) }}">
+                Launch Server - Security Risk (Only runs on Dev environments)
+            </a>
+            <a href="{{ path('race_entrylist', {'id': race.id }) }}">
+                Generate JSON of Entrylist
+            </a>
+        </div>
+    </div>
+{% endblock %}

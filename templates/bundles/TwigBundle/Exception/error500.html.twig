@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="display-1">
+        Error 500: "Safety Car is out!"
+    </h1>
+    <p>
+        There's a Internal Server Error. Please <a href="{{ path('user_home') }}">go back</a> to the dashboard.
+    </p>
+{% endblock %}

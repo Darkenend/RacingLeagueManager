@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="display-1">
+        Error 403: "You're going in the wrong direction"
+    </h1>
+    <p>
+        You don't have the permissions to access this particular site. Please <a href="{{ path('user_home') }}">go back</a> to the dashboard.
+    </p>
+{% endblock %}

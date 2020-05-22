@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | configuration.json{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('serverconfig_index') }}">
+                    Server Configuration
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                configuration.json
+            </li>
+        </ol>
+    </nav>
+    {{ form_start(form) }}
+    <div class="row text-center">
+        <div class="col-2 offset-2">
+            {{ form_row(form.maxConnections) }}
+        </div>
+        <div class="col-2 offset-2">
+            {{ form_row(form.port) }}
+        </div>
+        <div class="col align-middle">
+            {{ form_row(form.submit) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

@@ -3,11 +3,25 @@
 {% block title %}RLM | Result Processing{% endblock %}
 
 {% block body %}
-    <h1>
-        Result Processing Stuff
-    </h1>
-    <ul>
-        <li>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Result Processing
+            </li>
+        </ol>
+    </nav>
+    <ul class="list-group">
+        <li class="list-group-item">
             <a href="{{ path('resultprocessing_racelist') }}">
                 Process result
             </a>

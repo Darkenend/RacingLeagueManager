@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Championship;
 use App\Entity\ChampionshipEntries;
+use App\Entity\Conversation;
+use App\Entity\Message;
 use App\Entity\Race;
 use App\Entity\Team;
 use App\Entity\TeamDrivers;
@@ -70,7 +72,7 @@ class AppFixtures extends Fixture
         $teamdriver_8->setRank(2);
         $user_2->setName("Javier");
         $user_2->setLastname("Ramirez");
-        $user_2->setSteamid("76561191211111111");
+        $user_2->setSteamid("76561198039213821");
         $user_2->setEmail($this->mailFormer($user_2).$mailsuffix);
         $user_2->setPassword($this->passwordEncoder->encodePassword($user_2, 'password'));
         $teamdriver_3 = new TeamDrivers();
@@ -79,7 +81,7 @@ class AppFixtures extends Fixture
         $teamdriver_3->setRank(2);
         $user_3->setName("Carlos");
         $user_3->setLastname("Vidal");
-        $user_3->setSteamid("76561191311111111");
+        $user_3->setSteamid("76561198092767163");
         $user_3->setEmail($this->mailFormer($user_3).$mailsuffix);
         $user_3->setPassword($this->passwordEncoder->encodePassword($user_3, 'password'));
         $teamdriver_4 = new TeamDrivers();
@@ -88,7 +90,7 @@ class AppFixtures extends Fixture
         $teamdriver_4->setRank(0);
         $user_4->setName("Dano");
         $user_4->setLastname("Cumbiote");
-        $user_4->setSteamid("76561191411111111");
+        $user_4->setSteamid("76561198125072854");
         $user_4->setEmail($this->mailFormer($user_4).$mailsuffix);
         $user_4->setPassword($this->passwordEncoder->encodePassword($user_4, 'password'));
         $teamdriver_5 = new TeamDrivers();
@@ -97,7 +99,7 @@ class AppFixtures extends Fixture
         $teamdriver_5->setRank(1);
         $user_5->setName("Jimmy");
         $user_5->setLastname("Broadbent");
-        $user_5->setSteamid("76561191511111111");
+        $user_5->setSteamid("76561198042232268");
         $user_5->setEmail($this->mailFormer($user_5).$mailsuffix);
         $user_5->setPassword($this->passwordEncoder->encodePassword($user_5, 'password'));
         $teamdriver_6 = new TeamDrivers();
@@ -289,6 +291,31 @@ class AppFixtures extends Fixture
         $championshipEntry_3->setPoints(45);
         $championshipEntry_4->setPoints(273);
 
+        // Messaging System
+        $conversation = new Conversation();
+        $conversation->setUser($user_2);
+        $conversation->setTopic("Test Conversation");
+        $message_1 = new Message();
+        $message_1->setMessage(file_get_contents('http://loripsum.net/api/1/plaintext'));
+        $message_1->setCreator($user_2);
+        $message_2 = new Message();
+        $message_2->setMessage(file_get_contents('http://loripsum.net/api/1/plaintext'));
+        $message_2->setCreator($user_1);
+        $message_3 = new Message();
+        $message_3->setMessage(file_get_contents('http://loripsum.net/api/1/plaintext'));
+        $message_3->setCreator($user_2);
+        $message_4 = new Message();
+        $message_4->setMessage(file_get_contents('http://loripsum.net/api/1/plaintext'));
+        $message_4->setCreator($user_1);
+        $message_5 = new Message();
+        $message_5->setMessage(file_get_contents('http://loripsum.net/api/1/plaintext'));
+        $message_5->setCreator($user_2);
+        $conversation->addMessage($message_1);
+        $conversation->addMessage($message_2);
+        $conversation->addMessage($message_3);
+        $conversation->addMessage($message_4);
+        $conversation->addMessage($message_5);
+
         // Manager
         $manager->persist($team_1);
         $manager->persist($team_2);
@@ -327,6 +354,12 @@ class AppFixtures extends Fixture
         $manager->persist($championshipEntry_1);
         $manager->persist($championshipEntry_2);
         $manager->persist($championshipEntry_3);
+        $manager->persist($conversation);
+        $manager->persist($message_1);
+        $manager->persist($message_2);
+        $manager->persist($message_3);
+        $manager->persist($message_4);
+        $manager->persist($message_5);
         $manager->flush();
     }
 

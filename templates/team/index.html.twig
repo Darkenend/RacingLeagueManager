@@ -5,6 +5,11 @@
     <h1>
         {{ team.name }}
     </h1>
+    {% if message is defined %}
+        <p>
+            {{ message }}
+        </p>
+    {% endif %}
     <table class="table table-striped table-borderless">
         <thead class="thead-dark">
         <tr>
@@ -46,7 +51,6 @@
                                             </a>
                                         {% endif %}
                                     </button>
-
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
@@ -56,6 +60,15 @@
         </tbody>
     </table>
     <hr>
-    <a href="{{ path('user_teams') }}">Go back to your teams</a>
-    <a href="{{ path('user_home') }}">Go back to your home</a>
+    <a href="{{ path('team_signup', {'teamid': team.id}) }}">
+        Register Team in Championship
+    </a>
+    <hr>
+    <a href="{{ path('user_teams') }}">
+        Go back to your teams
+    </a>
+    <br>
+    <a href="{{ path('user_home') }}">
+        Go back to your home
+    </a>
 {% endblock %}

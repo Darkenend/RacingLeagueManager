@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Championship Sign Up{% endblock %}
+
+{% block body %}
+    <h1>
+        Championship Sign Up
+    </h1>
+    {{ form(form) }}
+    <hr>
+    <a href="{{ path('user_teams') }}">Go back to your teams</a>
+    <a href="{{ path('user_home') }}">Go back to your home</a>
+{% endblock %}

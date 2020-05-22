@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
-{% set img_1_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
-{% set img_2_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% set img_1_code = ['img/screens/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% set img_2_code = ['img/screens/ACC_11-', random(1, 25), '.jpg'] | join %}
 {% if img_1_code == img_2_code %}
-    {% set img_2_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+    {% set img_2_code = ['img/screens/ACC_11-', random(1, 25), '.jpg'] | join %}
 {% endif %}
-{% set img_3_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% set img_3_code = ['img/screens/ACC_11-', random(1, 25), '.jpg'] | join %}
 {% if img_3_code == img_1_code or img_3_code == img_2_code %}
-    {% set img_3_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+    {% set img_3_code = ['img/screens/ACC_11-', random(1, 25), '.jpg'] | join %}
 {% endif %}
 {% block title %}Racing League Manager{% endblock %}
 

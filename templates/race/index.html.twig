@@ -1,9 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block title %}RLM | Race Information{% endblock %}
 {% block body %}
-    <h1>
-        Championships Info
-    </h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Races Info
+            </li>
+        </ol>
+    </nav>
     <ul class="list-group">
         {% for championship in championships %}
             <li class="list-group-item">
@@ -13,8 +27,4 @@
             </li>
         {% endfor %}
     </ul>
-    <hr>
-    <a href="{{ path('admin_home') }}">
-        Admin Home
-    </a>
 {% endblock %}

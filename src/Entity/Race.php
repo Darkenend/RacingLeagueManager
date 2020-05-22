@@ -31,6 +31,7 @@ class Race
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TeamEntryList", mappedBy="race_id")
+     * @ORM\OrderBy({"result" = "ASC", "Laps" = "DESC"})
      */
     private $teamEntryLists;
 

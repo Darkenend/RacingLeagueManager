@@ -1,12 +1,46 @@
 {% extends 'base.html.twig' %}
-
+{% set img_1_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% set img_2_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% if img_1_code == img_2_code %}
+    {% set img_2_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% endif %}
+{% set img_3_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% if img_3_code == img_1_code or img_3_code == img_2_code %}
+    {% set img_3_code = ['img/ACC_11-', random(1, 25), '.jpg'] | join %}
+{% endif %}
 {% block title %}Racing League Manager{% endblock %}
 
 {% block body %}
-    <h1>
-        Racing League Manager
-    </h1>
-    <a href="{{ path('app_login') }}">
-        Login
-    </a>
+    <div class="jumbotron text-center my-3">
+        <h1 class="display-4 text-danger">
+            Racing League Manager
+        </h1>
+        <p class="lead hr my-4 p text-dark">
+            Welcome to the Racing League Manager by Darkenend
+        </p>
+        <div id="carouselScreenshots" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="2000">
+                    <img src="{{ asset(img_1_code) }}" class="d-block w-100" alt="Racing League Manager">
+                </div>
+                <div class="carousel-item" data-interval="2000">
+                    <img src="{{ asset(img_2_code) }}" class="d-block w-100" alt="Racing League Manager">
+                </div>
+                <div class="carousel-item" data-interval="2000">
+                    <img src="{{ asset(img_3_code) }}" class="d-block w-100" alt="Racing League Manager">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselScreenshots" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselScreenshots" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <a href="{{ path('app_login') }}" class="btn btn-success btn-lg mt-3" role="button">
+            Login
+        </a>
+    </div>
 {% endblock %}

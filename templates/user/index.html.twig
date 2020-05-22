@@ -4,7 +4,6 @@
 
 {% block body %}
     <h1>Welcome to Racing League Manager!</h1>
-    You're currently in the user panel, {{ app.user.name }} {{ app.user.lastname }}:
     <ul>
         <li>
             <a href="{{ path('user_teams') }}">
@@ -22,10 +21,4 @@
             </a>
         </li>
     </ul>
-    <hr>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('admin_home') }}">Go to the Admin Panel</a>
-    {% endif %}
-    <br>
-    <a href="{{ path('app_logout') }}">Log out of your account</a>
 {% endblock %}

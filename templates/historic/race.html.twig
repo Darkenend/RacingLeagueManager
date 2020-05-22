@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 {% set championship = "" %}
+{% set championshipid = 0 %}
 {% for race in races %}
     {% set championship = race.championshipId.name %}
+    {% set championshipid = race.championshipId.id %}
 {% endfor %}
 {% block title %}RLM | {{ championship }}{% endblock %}
 {% block body %}
@@ -56,4 +58,11 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="row text-center">
+        <div class="col">
+            <a href="{{ path('historic_championship', {'id': championshipid }) }}" class="btn btn-info">
+                See Championship Standings
+            </a>
+        </div>
+    </div>
 {% endblock %}

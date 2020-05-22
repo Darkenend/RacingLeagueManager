@@ -38,4 +38,15 @@ class HistoricController extends AbstractController
         $race = $this->getDoctrine()->getRepository(TeamEntryList::class)->getRaceResult($id);
         return $this->render("historic/result.html.twig", array('results'=>$race));
     }
+
+    /**
+     * @Route("/championship/{id}", name="_championship")
+     */
+    public function championships($id)
+    {
+        $championshipentries = $this->getDoctrine()->getRepository(Championship::class)->find($id)->getChampionshipEntries();
+        return $this->render("historic/championship.html.twig", [
+            'championshipentries' => $championshipentries
+        ]);
+    }
 }

@@ -3,7 +3,6 @@
 {% block title %}RLM | Message Board{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
     <h1>
         Message Board | {{ app.user.name }} {{ app.user.lastname }}
     </h1>
@@ -23,5 +22,4 @@
     <a href="{{ path('user_home') }}">
         Back to User Panel
     </a>
-</div>
 {% endblock %}

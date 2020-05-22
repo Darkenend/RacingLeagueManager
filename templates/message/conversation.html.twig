@@ -3,35 +3,33 @@
 {% block title %}RLM | {{ conversation.topic }}{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
-        <h1>
-            {{ conversation.topic }}
-        </h1>
-        {% for message in conversation.messages %}
+    <h1>
+        {{ conversation.topic }}
+    </h1>
+    {% for message in conversation.messages %}
+        <div>
             <div>
-                <div>
-                    <small style="width: 25%; float: left">
-                        {{ message.creator }}
-                    </small>
-                    <small style="width: 25%; float: right">
-                        {{ message.timestamp | date('F jS \\a\\t g:ia') }}
-                    </small>
-                </div>
-                <br>
-                <p>
-                    {{ message.message }}
-                </p>
+                <small style="width: 25%; float: left">
+                    {{ message.creator }}
+                </small>
+                <small style="width: 25%; float: right">
+                    {{ message.timestamp | date('F jS \\a\\t g:ia') }}
+                </small>
             </div>
-            <hr>
-        {% endfor %}
-        {{ form(form) }}
+            <br>
+            <p>
+                {{ message.message }}
+            </p>
+        </div>
         <hr>
-        <a href="{{ path('message_home') }}">
-            Back to Messages
-        </a>
-        <br>
-        <a href="{{ path('message_conversation', {'id': conversation.id }) }}">
-            Refresh Messages
-        </a>
-    </div>
+    {% endfor %}
+    {{ form(form) }}
+    <hr>
+    <a href="{{ path('message_home') }}">
+        Back to Messages
+    </a>
+    <br>
+    <a href="{{ path('message_conversation', {'id': conversation.id }) }}">
+        Refresh Messages
+    </a>
 {% endblock %}

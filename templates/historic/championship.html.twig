@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% set championship = "" %}
+{% set championshipid = 0 %}
+{% for entry in championshipentries %}
+    {% set championship = entry.championship.name %}
+    {% set championshipid = entry.championship.id %}
+{% endfor %}
+{% block title %}RLM | {{ championship }} Standings{% endblock %}
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('historic_championships') }}">
+                    Historic
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('historic_races', {'id': championshipid}) }}">
+                    {{ championship }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Standings
+            </li>
+        </ol>
+    </nav>
+    <table class="table table-striped table-borderless table-dark">
+        <thead class="thead-dark">
+        <tr>
+            <th>Team Name</th>
+            <th>Points</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entry in championshipentries %}
+            <tr>
+                <td>
+                    {{ entry.team.name }}
+                </td>
+                <td>
+                    {{ entry.points }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

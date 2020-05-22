@@ -66,7 +66,7 @@ class RaceController extends AbstractController
         $this->generateEntrylist($entrylist);
         $process = new Process([$_SERVER['APP_FOLDER'].'\\accServer.exe', $_SERVER['APP_FOLDER']]);
         $process->setTimeout($this->calculateTimeout($race));
-        if ($_ENV['APP_ENV'] == 'dev') $process->start();
+        //if ($_ENV['APP_ENV'] == 'dev') $process->start();
         return $this->render('admin/server.html.twig', [
             'message' => $message,
             'race' => $race

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MessageController!{% endblock %}
+{% block title %}RLM | Message Board{% endblock %}
 
 {% block body %}
 <div class="example-wrapper">
@@ -12,7 +12,7 @@
         <ul>
             {% for conversation in conversations %}
                 <li>
-                    <a href="">
+                    <a href="{{ path('message_conversation', {'id': conversation.id}) }}">
                         {{ conversation.topic }}
                     </a>
                 </li>

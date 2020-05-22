@@ -3,46 +3,42 @@
 {% block title %}RLM | Admin Panel{% endblock %}
 
 {% block body %}
-    <h1>Welcome to Racing League Manager!</h1>
-    You're currently in the admin panel, {{ app.user.name }} {{ app.user.lastname }}:
-    <ul>
-        <li>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item"><a href="{{ path('user_home') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Admin</li>
+        </ol>
+    </nav>
+    <ul class="list-group">
+        <li class="list-group-item">
             <a href="{{ path('admin_championship') }}">
                 Create Championship
             </a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="{{ path('admin_race') }}">
                 Create Race
             </a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="{{ path('race_dashboard') }}">
                 Next Races Information
             </a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="{{ path('historic_championships') }}">
                 See Past Championships and Races Results
             </a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="{{ path('serverconfig_index') }}">
                 Configure Server
             </a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="{{ path('resultprocessing_index') }}">
                 Result Processing
             </a>
         </li>
     </ul>
-    <hr>
-    <a href="{{ path('user_home') }}">
-        Back to the User Panel
-    </a>
-    <br>
-    <a href="{{ path('app_logout') }}">
-        Log out of your account
-    </a>
 {% endblock %}

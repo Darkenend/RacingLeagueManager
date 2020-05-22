@@ -1,10 +1,77 @@
 {% extends 'base.html.twig' %}
 {% block title %}RLM | Race Creation{% endblock %}
 {% block body %}
-    <h1>
-        Race Creation
-    </h1>
-    {{ form(form) }}
-    <hr>
-    <a class="btn btn-info" href="{{ path('admin_home') }}">Admin Zone</a>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Create Race
+            </li>
+        </ol>
+    </nav>
+    {{ form_start(form) }}
+    <div class="row">
+        {{ form_errors(form) }}
+    </div>
+    <div class="row text-center">
+        <div class="col offset-md-1 col-md-4">
+            {{ form_row(form.track) }}
+        </div>
+        <div class="col offset-md-2 col-md-4">
+            {{ form_row(form.championship_id) }}
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col col-md-4">
+            {{ form_row(form.ambientTemp) }}
+        </div>
+        <div class="col col-md-4">
+            {{ form_row(form.cloudLevel) }}
+        </div>
+        <div class="col col-md-4">
+            {{ form_row(form.rain) }}
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col offset-md-1 col-md-4">
+            {{ form_row(form.practice_hour) }}
+        </div>
+        <div class="col offset-md-2 col-md-4">
+            {{ form_row(form.practice_length) }}
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col offset-md-1 col-md-4">
+            {{ form_row(form.qualy_hour) }}
+        </div>
+        <div class="col offset-md-2 col-md-4">
+            {{ form_row(form.qualy_length) }}
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col offset-md-1 col-md-4">
+            {{ form_row(form.race_hour) }}
+        </div>
+        <div class="col offset-md-2 col-md-4">
+            {{ form_row(form.race_length) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-md-1 col-md-4">
+            {{ form_row(form.greenflagtime) }}
+        </div>
+        <div class="col offset-md-2 col-md-4">
+            {{ form_row(form.save) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}

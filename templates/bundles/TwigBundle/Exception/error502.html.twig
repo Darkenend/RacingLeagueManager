@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="display-1">
+        Error 502: "Incident under investigation"
+    </h1>
+    <p>
+        The server has recieved an invalid response from another server. Please <a href="{{ path('user_home') }}">go back</a> to the dashboard.
+    </p>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | User Panel{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item active" aria-current="page">
+                Home
+            </li>
+        </ol>
+    </nav>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{{ path('user_teams') }}">
+                Teams
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="{{ path('historic_championships') }}">
+                Past Championships and Races Results
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="{{ path('message_home') }}">
+                Message Board
+            </a>
+        </li>
+    </ul>
+{% endblock %}

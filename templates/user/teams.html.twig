@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% set repeatedIds = [] %}
+{% for team in allteams %}
+    {% for mine in teams %}
+        {% if team.id == mine.team.id %}
+            {% set repeatedIds = repeatedIds|merge([team.id]) %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% block title %}RLM | Your Teams{% endblock %}
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Teams
+            </li>
+        </ol>
+    </nav>
+    <ul class="list-group">
+        {% for team in teams %}
+            {% if team.rank != 0 %}
+                <li class="list-group-item">
+                    <a href="{{ path('team_profile', {'id': team.team.id }) }}">
+                        {{ team.team.name }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% for team in teams %}
+        {% if team.rank == 0 %}
+            <li>
+                <a href="{{ path('team_up', {'driverid': app.user.id, 'teamid': team.team.id }) }}">
+                    Invitation to {{ team.team.name }}
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    <hr>
+    <h3>
+        Teams Open to Apply
+    </h3>
+    <ul class="list-group">
+        {% for team in allteams %}
+            {% if team.id not in repeatedIds and team.privacy == 0 %}
+                <li class="list-group-item">
+                    <a href="{{ path('team_invite', {'driverid': app.user.id, 'teamid': team.id}) }}">
+                        {{ team.name }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

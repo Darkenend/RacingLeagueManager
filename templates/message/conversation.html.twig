@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | {{ conversation.topic }}{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Message Board
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ conversation.topic }}
+            </li>
+        </ol>
+    </nav>
+    {% for message in conversation.messages %}
+        <div>
+            <div>
+                <small style="width: 25%; float: left">
+                    {{ message.creator }}
+                </small>
+                <small style="width: 25%; float: right">
+                    {{ message.timestamp | date('F jS \\a\\t g:ia') }}
+                </small>
+            </div>
+            <br>
+            <p>
+                {{ message.message }}
+            </p>
+        </div>
+        <hr>
+    {% endfor %}
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                {{ form_errors(form) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.message) }}
+            </div>
+        </div>
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+    <a href="{{ path('message_conversation', {'id': conversation.id }) }}" class="btn btn-primary" role="button">
+        Refresh Messages
+    </a>
+{% endblock %}

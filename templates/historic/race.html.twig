@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% set championship = "" %}
+{% set championshipid = 0 %}
+{% for race in races %}
+    {% set championship = race.championshipId.name %}
+    {% set championshipid = race.championshipId.id %}
+{% endfor %}
+{% block title %}RLM | {{ championship }}{% endblock %}
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('historic_championships') }}">
+                    Historic
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ championship }}
+            </li>
+        </ol>
+    </nav>
+    <table class="table table-striped table-borderless table-dark">
+        <thead class="thead-light">
+        <tr>
+            <th>Circuit</th>
+            <th>Free Practice Length</th>
+            <th>Qualifying Length</th>
+            <th>Race Length</th>
+            <th>Results</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for race in races %}
+            <tr>
+                <td>
+                    {{ race.track | replace({'_2019': ""}) | replace({'_': " "}) | title }}
+                </td>
+                <td>
+                    {{ race.practiceLength }} minutes
+                </td>
+                <td>
+                    {{ race.qualyLength }} minutes
+                </td>
+                <td>
+                    {{ race.raceLength }} minutes
+                </td>
+                <td>
+                    <a href="{{ path('historic_race', {'id': race.id })}}">
+                        Results
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="row text-center">
+        <div class="col">
+            <a href="{{ path('historic_championship', {'id': championshipid }) }}" class="btn btn-info">
+                See Championship Standings
+            </a>
+        </div>
+    </div>
+{% endblock %}

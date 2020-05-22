@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="display-1">
+        Error 503: "The Yellow Flag is out"
+    </h1>
+    <p>
+        The server can't respond to the petition, this may be due to maintenance and/or congestion. Please <a href="{{ path('user_home') }}">go back</a> to the dashboard.
+    </p>
+{% endblock %}

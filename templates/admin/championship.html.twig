@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Create Championship{% endblock %}
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Create Championship
+            </li>
+        </ol>
+    </nav>
+    {{ form_start(form) }}
+        <div class="row">
+            {{ form_errors(form) }}
+        </div>
+        <div class="row text-center">
+            <div class="col-6 offset-3">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-6 offset-3">
+                {{ form_row(form.save) }}
+            </div>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

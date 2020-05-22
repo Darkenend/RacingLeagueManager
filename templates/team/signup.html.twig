@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}RLM | Championship Sign Up{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_teams') }}">
+                    Teams
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Register in Championship
+            </li>
+        </ol>
+    </nav>
+    {{ form(form) }}
+{% endblock %}

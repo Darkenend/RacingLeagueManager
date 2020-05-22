@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | Result Processing | Race{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_home') }}">
+                    Admin
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('resultprocessing_index') }}">
+                    Result Processing
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Process Result
+            </li>
+        </ol>
+    </nav>
+    {% if form is defined %}
+        {{ form(form) }}
+    {% endif %}
+    {% if message != "" %}
+        {{ message }}
+    {% endif %}
+{% endblock %}

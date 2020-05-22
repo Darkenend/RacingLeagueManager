@@ -1,9 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block title %}RLM | Historic{% endblock %}
 {% block body %}
-    <h1>
-        Championships
-    </h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item">
+                <a href="{{ path('user_home') }}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Historic
+            </li>
+        </ol>
+    </nav>
     <ul class="list-group">
         {% for championship in championships %}
             <li class="list-group-item">
@@ -13,8 +22,4 @@
             </li>
         {% endfor %}
     </ul>
-    <hr>
-    <a href="{{ path('user_home') }}">
-        User Home
-    </a>
 {% endblock %}

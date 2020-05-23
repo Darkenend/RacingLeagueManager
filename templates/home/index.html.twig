@@ -21,13 +21,13 @@
         <div id="carouselScreenshots" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-interval="2000">
-                    <img src="{{ asset(img_1_code) }}" class="d-block w-100" alt="Racing League Manager">
+                    <img src="{{ asset(img_1_code) }}" alt="Racing League Manager" style="max-width: 50%; display: block; margin:auto">
                 </div>
                 <div class="carousel-item" data-interval="2000">
-                    <img src="{{ asset(img_2_code) }}" class="d-block w-100" alt="Racing League Manager">
+                    <img src="{{ asset(img_2_code) }}" alt="Racing League Manager" style="max-width: 50%; display: block; margin:auto">
                 </div>
                 <div class="carousel-item" data-interval="2000">
-                    <img src="{{ asset(img_3_code) }}" class="d-block w-100" alt="Racing League Manager">
+                    <img src="{{ asset(img_3_code) }}" alt="Racing League Manager" style="max-width: 50%; display: block; margin:auto">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselScreenshots" role="button" data-slide="prev">
@@ -39,8 +39,11 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <a href="{{ path('app_login') }}" class="btn btn-success btn-lg mt-3" role="button">
+        <a href="{{ path('app_login') }}" class="btn btn-success btn-lg mt-3 float-left" role="button">
             Login
+        </a>
+        <a href="{{ path('app_register') }}" class="btn btn-success btn-lg mt-3 float-right" role="button">
+            Register
         </a>
     </div>
 {% endblock %}

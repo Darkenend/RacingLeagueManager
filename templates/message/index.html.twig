@@ -9,8 +9,15 @@
             <li class="breadcrumb-item active" aria-current="page">Message Board</li>
         </ol>
     </nav>
-    {% if conversations|length != 0 %}
+    {% if conversations|length != 0 or is_granted('ROLE_ADMIN') %}
         <ul class="list-group">
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="list-group-item list-group-item-info">
+                    <a href="{{ path('message_create') }}">
+                        Create New Conversation
+                    </a>
+                </li>
+            {% endif %}
             {% for conversation in conversations %}
                 <li class="list-group-item">
                     <a href="{{ path('message_conversation', {'id': conversation.id}) }}">

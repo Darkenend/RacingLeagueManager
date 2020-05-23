@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Conversation;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,7 +17,7 @@ class ConversationType extends AbstractType
     {
         $builder
             ->add('user', EntityType::class, [
-                'choice_label' => '__toString'
+                'class' => User::class
             ])
             ->add('topic', TextType::class)
             ->add('submit', SubmitType::class)

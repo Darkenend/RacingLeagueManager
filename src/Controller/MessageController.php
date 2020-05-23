@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
+use App\Form\ConversationType;
 use App\Form\MessageType;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/", name="_home")
+     * @Route("/dash", name="_home")
      */
     public function index()
     {
@@ -34,7 +35,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="_conversation")
+     * @Route("/conversation/{id}", name="_conversation")
      */
     public function conversation($id, ?Request $request): Response {
         $conversation = $this->getDoctrine()->getRepository(Conversation::class)->find($id);
@@ -61,14 +62,12 @@ class MessageController extends AbstractController
      */
     public function createConversation(?Request $request): Response {
         $conversation = new Conversation();
-        $form = $this->createForm(Conversation::class, $conversation);
-        if (isset($request)) $form->handleRequest();
+        $form = $this->createForm(ConversationType::class, $conversation);
+        if (isset($request)) $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($conversation);
             $em->flush();
-            $conv_id = $conversation->getId();
-            return $this->redirectToRoute('message_conversation', ['id' => $conv_id]);
         }
         return $this->render('message/create.html.twig', [
             'form'=>$form->createView()

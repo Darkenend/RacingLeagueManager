@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Championship;
-use App\Entity\TeamEntryList;
+use App\Entity\Race;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -35,7 +35,7 @@ class HistoricController extends AbstractController
      */
     public function race($id)
     {
-        $race = $this->getDoctrine()->getRepository(TeamEntryList::class)->getRaceResult($id);
+        $race = $this->getDoctrine()->getRepository(Race::class)->find($id)->getTeamEntryLists();
         return $this->render("historic/result.html.twig", array('results'=>$race));
     }
 

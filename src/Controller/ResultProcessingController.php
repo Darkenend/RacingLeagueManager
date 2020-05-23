@@ -86,12 +86,21 @@ class ResultProcessingController extends AbstractController
     {
         $race = $this->getDoctrine()->getRepository(TeamEntryList::class)->getRaceResult($id);
         $results_directory = scandir($_SERVER['APP_FOLDER']."\\results");
-        if (count($results_directory) == 3) {
-            $filepath = $_SERVER['APP_FOLDER']."\\results\\".$results_directory[2];
-            $backup_path = $_SERVER['APP_FOLDER']."\\backup\\".$results_directory[2];
+        if (count($results_directory) > 2) {
+            $filepath = $_SERVER['APP_FOLDER']."\\results\\".$results_directory[3];
+            $backup_path = $_SERVER['APP_FOLDER']."\\backup\\".$results_directory[3];
             copy($filepath, $backup_path);
             $string = iconv('UTF-16LE', 'UTF-8', file_get_contents($filepath));
-            $results = json_decode($string, true);
+            if (substr_count($string,'"sessionType": "R",') > 1) {
+                $count = 1;
+                $string = str_replace('"sessionType": "R",', "", $string, $count);
+            }
+            // Hidden Character Removal
+            for ($i = 0; $i <= 31; ++$i) $string = str_replace(chr($i), "", $string);
+            $string = str_replace(chr(127), "", $string);
+            if (0 === strpos(bin2hex($string), 'efbbbf')) $string = substr($string, 3);
+            // Decode of Array
+            $results = json_decode($string, true, 512, JSON_THROW_ON_ERROR);
             foreach ($results as $root_key => $sessionresult_key) {
                 if ($root_key == "sessionResult") {
                     foreach ($sessionresult_key as $leaderboardLines_key => $value) {
@@ -112,6 +121,7 @@ class ResultProcessingController extends AbstractController
             $this->getDoctrine()->getRepository(Race::class)->find($id)->setComplete(true);
             $this->getDoctrine()->getManager()->flush();
             unlink($filepath);
+            unlink($_SERVER['APP_FOLDER']."\\results\\".$results_directory[2]);
         }
         return $this->render("historic/result.html.twig", array('results'=>$race));
     }

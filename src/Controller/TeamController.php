@@ -7,7 +7,6 @@ use App\Entity\Team;
 use App\Entity\TeamDrivers;
 use App\Entity\User;
 use App\Form\ChampionshipSignupType;
-use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -103,7 +102,7 @@ class TeamController extends AbstractController
     /**
      * @Route("/signup/{teamid}", name="_signup")
      */
-    public function signUpFor(int $teamid, ?Request $request, LoggerInterface $logger): Response
+    public function signUpFor(int $teamid, ?Request $request): Response
     {
         $currentUserRank = $this->getDoctrine()->getRepository(TeamDrivers::class)->findOneBy([
             'team' => $teamid,
@@ -120,7 +119,6 @@ class TeamController extends AbstractController
         }
         else $result = 0;
         if ($form->isSubmitted() && $form->isValid()) {
-            $logger->debug('Form Submitted & Valid');
             if (is_null($this->getDoctrine()->getRepository(ChampionshipEntries::class)->findBy(['team'=>$team, 'championship' => $championshipsignup->getChampionship()]))) $result = 3;
             else {
                 $entitymanager = $this->getDoctrine()->getManager();

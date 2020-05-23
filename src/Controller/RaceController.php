@@ -91,9 +91,13 @@ class RaceController extends AbstractController
             }
             $entrylist_json = $entrylist_json.'],"raceNumber":'.$entry->getRacenumber().',';
             $entrylist_json = $entrylist_json.'"forcedCarModel":'.$entry->getCarmodel();
-            $entrylist_json = !next($entrylist) ? $entrylist_json . '}' : $entrylist_json . '},';
+            if (!next($entrylist)) {
+                $entrylist_json = $entrylist_json . '}';
+            } else {
+                $entrylist_json = $entrylist_json . '},';
+            }
         }
-        $entrylist_json = $entrylist_json.'], "forceEntryList": 0}';
+        $entrylist_json = $entrylist_json.'], "forceEntryList": 1}';
         $filepath = $_SERVER['APP_FOLDER']."\cfg\\entrylist.json";
         file_put_contents($filepath, $entrylist_json);
     }

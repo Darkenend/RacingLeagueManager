@@ -37,7 +37,7 @@ class ServerConfigController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formdata = $form->getData();
-            $configstring = "{\"udpPort\": ".$formdata['port'].",\"tcpPort\": ".$formdata['port'].",\"maxConnections\": ".$formdata['maxConnections'].",\"lanDiscovery\": 0,\"registerToLobby\": 0,\"configVersion\": 1}";
+            $configstring = "{\"udpPort\": ".$formdata['port'].",\"tcpPort\": ".$formdata['port'].",\"maxConnections\": ".$formdata['maxConnections'].",\"lanDiscovery\": 1,\"registerToLobby\": 0,\"configVersion\": 1}";
             $this->dumpJSON($_SERVER['APP_FOLDER']."\cfg\\configuration.json", $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "configuration.json has been generated"
@@ -61,7 +61,7 @@ class ServerConfigController extends AbstractController
             else $helper1 = 0;
             if ($formdata['shortFormationLap']) $helper2 = 1;
             else $helper2 = 0;
-            $configstring = "{\"serverName\": \"".$formdata['serverName']."\",\"adminPassword\": \"".$formdata['adminPassword']."\",\"trackMedalsRequirement\": 3,\"safetyRatingRequirement\": 50, \"racecraftRatingRequirement\": -1,\"maxCarSlots\": ".$formdata['maxCarSlots'].",\"dumpLeaderboards\": 1,\"isRaceLocked\": 0,\"randomizeTrackWhenEmpty\": 0,\"centralEntryListPath\": \"\",\"allowAutoDQ\": ".$helper1.",\"shortFormationLap\": ".$helper2.",\"dumpEntryList\": 0,\"formationLapType\": ".$formdata['formationLapType']."}";
+            $configstring = "{\"serverName\": \"".$formdata['serverName']."\",\"adminPassword\": \"".$formdata['adminPassword'].", \"racecraftRatingRequirement\": -1,\"maxCarSlots\": ".$formdata['maxCarSlots'].",\"dumpLeaderboards\": 1,\"isRaceLocked\": 0,\"randomizeTrackWhenEmpty\": 0,\"centralEntryListPath\": \"\",\"allowAutoDQ\": ".$helper1.",\"shortFormationLap\": ".$helper2.",\"dumpEntryList\": 0,\"formationLapType\": ".$formdata['formationLapType']."}";
             $this->dumpJSON($_SERVER['APP_FOLDER']."\cfg\\settings.json", $configstring);
             return $this->render('server_config/index.html.twig', [
                 'message' => "settings.json has been generated"

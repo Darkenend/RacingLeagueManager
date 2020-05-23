@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
+use App\Form\ConversationType;
 use App\Form\MessageType;
 use DateTimeImmutable;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/", name="_home")
+     * @Route("/dash", name="_home")
      */
     public function index()
     {
@@ -35,23 +35,17 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="_conversation")
+     * @Route("/conversation/{id}", name="_conversation")
      */
-    public function conversation($id, ?Request $request, LoggerInterface $logger): Response {
+    public function conversation($id, ?Request $request): Response {
         $conversation = $this->getDoctrine()->getRepository(Conversation::class)->find($id);
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
-        $logger->debug("", ['isset_request'=>isset($request)]);
         if (isset($request)) $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $logger->debug("Form Submitted & Valid");
             $message->setConversationId($conversation);
-            $logger->debug("Conversation ID", ['conversationid' => $message->getConversationId()]);
             $message->setCreator($this->getUser());
-            $logger->debug("Creator", ['creator' => $message->getCreator()->__toString()]);
             $message->setTimestamp(new DateTimeImmutable());
-            $logger->debug("Timestamp", ['ts' => $message->getTimestamp()->format('F jS \\a\\t g:ia')]);
-            $logger->debug("Message", ['msg' => $message->getMessage()]);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
@@ -59,6 +53,24 @@ class MessageController extends AbstractController
         return $this->render('message/conversation.html.twig', [
             'conversation' => $conversation,
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Security("is_granted('ROLE_ADMIN')")
+     * @Route("/create", name="_create")
+     */
+    public function createConversation(?Request $request): Response {
+        $conversation = new Conversation();
+        $form = $this->createForm(ConversationType::class, $conversation);
+        if (isset($request)) $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($conversation);
+            $em->flush();
+        }
+        return $this->render('message/create.html.twig', [
+            'form'=>$form->createView()
         ]);
     }
 }

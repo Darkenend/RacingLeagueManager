@@ -44,6 +44,9 @@ class AppFixtures extends Fixture
         $team_4 = new Team();
         $team_4->setName("Darkenend Team");
         $team_4->setPrivacy(2);
+        $team_5 = new Team();
+        $team_5->setName("Dano Team");
+        $team_5->setPrivacy(2);
 
         // Usuarios
         $user_1 = new User();
@@ -97,6 +100,10 @@ class AppFixtures extends Fixture
         $teamdriver_5->setDriver($user_4);
         $teamdriver_5->setTeam($team_2);
         $teamdriver_5->setRank(1);
+        $teamdriver_9 = new TeamDrivers();
+        $teamdriver_9->setDriver($user_4);
+        $teamdriver_9->setTeam($team_5);
+        $teamdriver_9->setRank(2);
         $user_5->setName("Jimmy");
         $user_5->setLastname("Broadbent");
         $user_5->setSteamid("76561198042232268");
@@ -170,7 +177,7 @@ class AppFixtures extends Fixture
         $race_4->setRaceLength(180);
         $race_4->setGreenflagtime(DateTime::createFromFormat('U', '1567341000'));
         $race_4->setComplete(false);
-        $race_5->setTrack("mount_panorama_2019");
+        $race_5->setTrack("brands_hatch_2019");
         $race_5->setAmbientTemp(20);
         $race_5->setCloudLevel(0.1);
         $race_5->setRain(0);
@@ -265,6 +272,11 @@ class AppFixtures extends Fixture
         $entrylist_5_1->setRacenumber(273);
         $entrylist_5_1->setRaceId($race_5);
         $entrylist_5_1->setCarmodel(23);
+        $entrylist_5_2 = new TeamEntryList();
+        $entrylist_5_2->setTeamId($team_5);
+        $entrylist_5_2->setRacenumber(74);
+        $entrylist_5_2->setRaceId($race_5);
+        $entrylist_5_2->setCarmodel(22);
 
         // Campeonatos
         $championship = new Championship();
@@ -321,6 +333,7 @@ class AppFixtures extends Fixture
         $manager->persist($team_2);
         $manager->persist($team_3);
         $manager->persist($team_4);
+        $manager->persist($team_5);
         $manager->persist($user_1);
         $manager->persist($user_2);
         $manager->persist($user_3);
@@ -335,6 +348,7 @@ class AppFixtures extends Fixture
         $manager->persist($teamdriver_6);
         $manager->persist($teamdriver_7);
         $manager->persist($teamdriver_8);
+        $manager->persist($teamdriver_9);
         $manager->persist($race_1);
         $manager->persist($race_2);
         $manager->persist($race_3);
@@ -350,6 +364,7 @@ class AppFixtures extends Fixture
         $manager->persist($entrylist_3_2);
         $manager->persist($entrylist_3_3);
         $manager->persist($entrylist_5_1);
+        $manager->persist($entrylist_5_2);
         $manager->persist($championship);
         $manager->persist($championshipEntry_1);
         $manager->persist($championshipEntry_2);

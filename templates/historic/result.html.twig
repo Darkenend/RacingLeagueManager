@@ -64,11 +64,9 @@
                         "20": "Aston Martin Vantage V8", "21": "Honda NSX Evo", "22": "McLaren 720S GT3", "23": "Porsche 911 II GT3 R"}) }}
                 </td>
                 <td>
-                    {% set bestlap_split = (result.bestlap | split('', 3)) %}
-                    {% set ms = bestlap_split[1] %}
-                    {% set seconds = bestlap_split[0] %}
+                    {% set ms = result.bestlap[-3:] %}
+                    {% set seconds = result.bestlap[:-3] %}
                     {% set hours = seconds / 3600 % 60 %}
-
                     {% if hours  < 1 %}
                         {# set hours to nothing #}
                         {% set hours = null %}
@@ -76,10 +74,8 @@
                         {# output hours with a colon: #}
                         {% set hours = hours|number_format ~ ':' %}
                     {% endif %}
-
                     {# set minutes remain but no seconds and with a colon #}
                     {% set minutes = seconds / 60 % 60  ~ ':' %}
-
                     {# set seconds but no minutes or hours #}
                     {% set seconds = seconds % 60 %}
                     {% if seconds < 10 %}
@@ -89,10 +85,9 @@
                     {% if hours != null %}{{ hours }}{% endif %}{{ minutes }}{{ seconds }}.{{ ms }}
                 </td>
                 <td>
-                    {% set ms = result.result[3:] %}
-                    {% set seconds = result.result[:result.result|length-3] %}
+                    {% set ms = result.result[-3:] %}
+                    {% set seconds = result.result[:-3] %}
                     {% set hours = seconds / 3600 % 60 %}
-
                     {% if hours  < 1 %}
                         {# set hours to nothing #}
                         {% set hours = null %}
@@ -100,13 +95,13 @@
                         {# output hours with a colon: #}
                         {% set hours = hours|number_format ~ ':' %}
                     {% endif %}
-
                     {# set minutes remain but no seconds and with a colon #}
-                    {% set minutes = seconds / 60 % 60  ~ ':' %}
+                    {% set minutes = seconds / 60 % 60 %}
                     {% if minutes < 10 %}
                         {# add a leading zero if minutes are less than 10 #}
                         {% set minutes = '0' ~ minutes %}
                     {% endif %}
+                    {% set minutes = minutes ~ ':' %}
                     {# set seconds but no minutes or hours #}
                     {% set seconds = seconds % 60 %}
                     {% if seconds < 10 %}

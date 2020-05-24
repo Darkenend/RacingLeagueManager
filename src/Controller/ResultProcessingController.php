@@ -119,6 +119,18 @@ class ResultProcessingController extends AbstractController
                 }
             }
             $this->getDoctrine()->getRepository(Race::class)->find($id)->setComplete(true);
+            $championship = $this->getDoctrine()->getRepository(Race::class)->find($id)->getChampionshipId();
+            $pointsEntrylists = $this->getDoctrine()->getRepository(Race::class)->find($id)->getTeamEntryLists()->slice(0,10);
+            $pointsArray = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+            $count = 0;
+            foreach ($pointsEntrylists as $entrylist) {
+                $championshipEntry = $this->getDoctrine()->getRepository(ChampionshipEntries::class)->findOneBy([
+                    'championship'=>$championship,
+                    'team'=>$entrylist->getTeamId()
+                ]);
+                $championshipEntry->setPoints($championshipEntry->getPoints()+$pointsArray[$count]);
+                $count++;
+            }
             $this->getDoctrine()->getManager()->flush();
             unlink($filepath);
             unlink($_SERVER['APP_FOLDER']."\\results\\".$results_directory[2]);

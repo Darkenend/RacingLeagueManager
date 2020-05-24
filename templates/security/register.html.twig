@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RLM | Register{% endblock %}
+
+{% block body %}
+    <div class="row text-center">
+        <div class="col">
+            <h1 class="display-1">
+                Registration
+            </h1>
+        </div>
+    </div>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col col-md-6 col-lg-3 offset-lg-2">
+            {{ form_row(form.name)}}
+        </div>
+        <div class="col col-md-6 col-lg-3 offset-lg-2">
+            {{ form_row(form.lastname)}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-6 col-lg-3 offset-lg-2">
+            {{ form_row(form.email)}}
+        </div>
+        <div class="col col-md-6 col-lg-3 offset-lg-2">
+            {{ form_row(form.password)}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-6 col-lg-3 offset-lg-2">
+            {{ form_row(form.steamid)}}
+        </div>
+        <div class="col col-md-6 col-lg-3 offset-lg-2 my-auto">
+            If you don't know where to find your SteamID64, you can go <a href="https://steamidfinder.com">here</a>, and search for your profile.
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-12">
+            {{ form_row(form.submit) }}
+        </div>
+        <div class="col-12">
+            <a href="{{ path('slash') }}">
+                Go back to the homepage
+            </a>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

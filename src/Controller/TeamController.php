@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ChampionshipEntries;
 use App\Entity\Team;
 use App\Entity\TeamDrivers;
+use App\Entity\TeamEntryList;
 use App\Entity\User;
 use App\Form\ChampionshipSignupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -124,7 +125,19 @@ class TeamController extends AbstractController
                 $entitymanager = $this->getDoctrine()->getManager();
                 $championshipsignup->setPoints(0);
                 $championshipsignup->setTeam($team);
+                $entries = [];
+                if ($championshipsignup->getChampionship()->getRaces() > 0) {
+                    foreach ($championshipsignup->getChampionship()->getRaces() as $race) {
+                        $entry = new TeamEntryList();
+                        $entry->setTeamId($team);
+                        $entry->setRaceId($race);
+                        $entry->setCarmodel(rand(1, 20));
+                        $entry->setRacenumber(rand(1, 999));
+                        array_push($entries, $entry);
+                    }
+                }
                 $entitymanager->persist($championshipsignup);
+                foreach ($entries as $entry) $entitymanager->persist($entry);
                 $entitymanager->flush();
                 $result = 2;
             }
